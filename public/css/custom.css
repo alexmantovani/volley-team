@@ -1,5 +1,5 @@
 .spacer.yellow,.section.yellow  {
-	background:#ffe873;
+	background:#f3cc08;
 }
 
 section.spacer {
@@ -9,3 +9,11 @@ section.spacer {
 	margin:0;
 }
 
+.navbar {
+    height: 80px;
+    font-size: 115%;
+}
+
+.bg-red {
+    background-color: red;
+}

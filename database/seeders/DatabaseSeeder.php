@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,9 +17,22 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Credenziali Amministratore
+        \App\Models\User::factory()->create([
+            'name' => 'Administrator',
+            'email' => 'a@a.a',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        \App\Models\Team::factory()->count(14)
+            ->has(\App\Models\Player::factory()->count(10))
+            ->create();
+
+        $tournament = \App\Models\Tournament::create(['name' => 'Torneo Ufficiale']);
+        $tournament->teams()->sync([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+
+        $tournament = \App\Models\Tournament::create(['name' => 'Torneo Funi']);
+        $tournament->teams()->sync([1, 2, 3, 4, 11, 12]);
+
     }
 }

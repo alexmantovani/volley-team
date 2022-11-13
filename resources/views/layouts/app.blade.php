@@ -14,10 +14,12 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <!-- Font awesome -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
     {{-- Custom --}}
-    <link href="resources/css/custom.css" rel="stylesheet">
-
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -44,19 +46,37 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Chi siamo') }}</a>
+                            <a class="nav-link" href="#chisiamo">{{ __('Chi siamo') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Squadre') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Gare') }}</a>
                         </li>
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Sponsor') }}</a>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Tariffe') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Novità') }}</a>
-                        </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Contatti') }}</a>
+                        </li> --}}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Fotogallery
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('register') }}">
+                                    {{ __('Impostazioni personali') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('register') }}">
+                                    {{ __('Impostazioni personali') }}
+                                </a>
+                            </div>
                         </li>
 
                         <!-- Authentication Links -->
@@ -86,8 +106,7 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -101,7 +120,12 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        @include('layouts.footer')
+
     </div>
+
+    @stack('scripts')
 </body>
 
 </html>
