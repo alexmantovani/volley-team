@@ -13,11 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('results', function (Blueprint $table) {
+        Schema::create('result_team', function (Blueprint $table) {
             $table->id();
 
-            // $table->foreignId('home_team_id');
-            // $table->foreignId('visitor_team_id');
+            $table->foreignId('result_id');
+            $table->foreignId('team_id');
+
+            $table->boolean('visitor_team')->default(false);
+            $table->boolean('winner')->default(false);
+
+            $table->tinyInteger('set_wins')->default(0);
 
             $table->timestamps();
         });
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('results');
+        Schema::dropIfExists('result_team');
     }
 };

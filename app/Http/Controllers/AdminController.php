@@ -14,7 +14,8 @@ class AdminController extends Controller
 
     public function index()
     {
-        StatParser::parsePage();
+        $parser = new StatParser();
+        $parser->parsePage();
 
         return view('admin.index');
     }

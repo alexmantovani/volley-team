@@ -9,6 +9,8 @@ class Team extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function tournaments()
     {
         return $this->belongsToMany(Tournament::class);
@@ -17,6 +19,11 @@ class Team extends Model
     public function players()
     {
         return $this->belongsToMany(Player::class);
+    }
+
+    public function results()
+    {
+        return $this->belongsToMany(Result::class);
     }
 
 }
