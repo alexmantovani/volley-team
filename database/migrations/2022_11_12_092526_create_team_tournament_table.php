@@ -24,6 +24,8 @@ return new class extends Migration
 
             // Dati per il ranking (classifica)
             $table->tinyInteger('score')->nullable();
+            $table->tinyInteger('match_won')->nullable();
+            $table->tinyInteger('match_lost')->nullable();
             $table->tinyInteger('set_won')->nullable();
             $table->tinyInteger('set_lost')->nullable();
 

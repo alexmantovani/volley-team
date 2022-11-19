@@ -172,13 +172,22 @@
                                 <td>
                                     Squadra
                                 </td>
-                                <td>
+                                <td class="text-end">
                                     Punti
                                 </td>
-                                <td>
+                                <td class="text-end">
+                                    Match Giocati
+                                </td>
+                                <td class="text-end">
+                                    Match Vinti
+                                </td>
+                                <td class="text-end">
+                                    Match persi
+                                </td>
+                                <td class="text-end">
                                     Set Vinti
                                 </td>
-                                <td>
+                                <td class="text-end">
                                     Set persi
                                 </td>
                             </tr>
@@ -189,17 +198,32 @@
                                             {{ $team->name }}
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="text-end">
                                         <div class="h5">
                                             {{ $team->pivot->score }}
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="text-end">
+                                        <div class="h5 ">
+                                            {{ $team->pivot->match_won + $team->pivot->match_lost }}
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="h5">
+                                            {{ $team->pivot->match_won }}
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="h5">
+                                            {{ $team->pivot->match_lost }}
+                                        </div>
+                                    </td>
+                                    <td class="text-end">
                                         <div class="h5">
                                             {{ $team->pivot->set_won }}
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="text-end">
                                         <div class="h5">
                                             {{ $team->pivot->set_lost }}
                                         </div>

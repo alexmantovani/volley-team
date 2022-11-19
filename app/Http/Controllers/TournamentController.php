@@ -133,7 +133,8 @@ class TournamentController extends Controller
             $filled_url = str_replace("{round}", $round, $url);
 
             // Lista degli incontri di una giornata
-            $list = $parser->parseRoundMatches($filled_url);
+            $htmlText = file_get_contents($filled_url);
+            $list = $parser->parseRoundMatches($htmlText);
             if ($list) {
                 Log::info('Parser: Scaricata giornata ' . $round);
 
@@ -173,7 +174,8 @@ class TournamentController extends Controller
         // Scarico i dettagli sull'incontro
         $url = $tournament->query;
         $filled_url = str_replace("{round}", 1, $url);
-        $list = $parser->parseLocationMatches($filled_url);
+        $htmlText = file_get_contents($filled_url);
+        $list = $parser->parseLocationMatches($htmlText);
         if ($list) {
             foreach ($list as $item) {
                 $homeTeam = $tournament->teams()->firstOrCreate([
@@ -215,7 +217,8 @@ class TournamentController extends Controller
             $filled_url = str_replace("{round}", $round, $url);
 
             // Lista degli incontri di una giornata
-            $list = $parser->parseResultMatches($filled_url);
+            $htmlText = file_get_contents($filled_url);
+            $list = $parser->parseResultMatches($htmlText);
             if ($list) {
                 foreach ($list as $item) {
                     $homeTeam = $tournament->teams()->firstOrCreate([
@@ -242,6 +245,8 @@ class TournamentController extends Controller
                             'set_3' => $item['set_3'][0],
                             'set_4' => $item['set_4'][0],
                             'set_5' => $item['set_5'][0],
+                            'winner' => $item['winner'][0],
+                            'loser' => $item['winner'][1],
                         ],
                         $visitorTeam->id => [
                             'set_won' => $item['set_won'][1],
@@ -252,6 +257,8 @@ class TournamentController extends Controller
                             'set_3' => $item['set_3'][1],
                             'set_4' => $item['set_4'][1],
                             'set_5' => $item['set_5'][1],
+                            'winner' => $item['winner'][1],
+                            'loser' => $item['winner'][0],
                         ],
                     ]);
                 }
@@ -261,33 +268,23 @@ class TournamentController extends Controller
         return back()->withInput();
     }
 
+
     public function evaluateClassification(Season $season, Tournament $tournament)
     {
-        $scores = array();
+        $tournament->updateRanking();
 
-        foreach ($tournament->teams as $team) {
-            $score = $team->results->where('tournament_id', $tournament->id)->sum('pivot.score');
-            $setWon = $team->results->where('tournament_id', $tournament->id)->sum('pivot.set_won');
-            $setLost = $team->results->where('tournament_id', $tournament->id)->sum('pivot.set_lost');
+        // foreach ($tournament->teams as $team) {
+        //     $score = $team->results->where('tournament_id', $tournament->id)->sum('pivot.score');
+        //     $setWon = $team->results->where('tournament_id', $tournament->id)->sum('pivot.set_won');
+        //     $setLost = $team->results->where('tournament_id', $tournament->id)->sum('pivot.set_lost');
 
-            $tournament->teams()->syncWithoutDetaching([
-                $team->id => [
-                    "score" => $score,
-                    "set_won" => $setWon,
-                    "set_lost" => $setLost,
-                ]
-            ]);
-
-        }
-
-        // $ranking = $tournament->teams
-        //     ->sortBy([
-        //             ['pivot.score', 'desc'],
-        //             ['pivot.set_won', 'desc'],
-        //             ['pivot.set_lost', 'asc'],
-        //             ['name', 'asc'],
-        //         ]);
-
-
+        //     $tournament->teams()->syncWithoutDetaching([
+        //         $team->id => [
+        //             "score" => $score,
+        //             "set_won" => $setWon,
+        //             "set_lost" => $setLost,
+        //         ]
+        //     ]);
+        // }
     }
 }

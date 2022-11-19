@@ -73,6 +73,7 @@ class Result extends Model
         return $this->belongsToMany(Team::class)
             ->withPivot([
                 'winner',
+                'loser',
                 'score',
                 'set_won',
                 'set_lost',

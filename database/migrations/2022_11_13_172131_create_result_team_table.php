@@ -22,8 +22,8 @@ return new class extends Migration
             $table->foreignId('result_id');
             $table->foreignId('team_id');
 
-            // $table->boolean('visitor_team')->default(false);
             $table->boolean('winner')->default(false);
+            $table->boolean('loser')->default(false);
 
             $table->tinyInteger('score')->default(0);
             $table->tinyInteger('set_won')->default(0);

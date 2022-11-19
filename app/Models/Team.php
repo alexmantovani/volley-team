@@ -16,6 +16,8 @@ class Team extends Model
         return $this->belongsToMany(Tournament::class)
             ->withPivot([
                 "score",
+                "match_won",
+                "match_lost",
                 "set_won",
                 "set_lost",
             ]);
@@ -31,6 +33,7 @@ class Team extends Model
         return $this->belongsToMany(Result::class)
             ->withPivot([
                 'winner',
+                'loser',
                 'score',
                 'set_won',
                 'set_lost',
