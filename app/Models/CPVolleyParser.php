@@ -11,58 +11,54 @@ class CPVolleyParser extends Model
 {
     use HasFactory;
 
+    /**
+     * Riporta una stringa ripulita da eventiali caratteri "invisibili"
+     * Rimuove anche gli spazi tra le parole (/sa trim())
+     *
+     * @param string $str stringa da ripulire
+     * @return string
+     */
     function cleanString($str)
     {
         return str_replace(array("\r\n", "\r", "\n", "\t", " "), '', $str);
     }
 
-    public function isWinner($result, $index)
+    /**
+     * Ricevuto in ingresso il risultato dell'incontro riporta se la squadra indicata ha vinto
+     *
+     * @param array $matchResults risultato dell'incontro
+     * @param int $teamIndex [0=squadra di casa 1=squadra ospite]
+     *
+     * @return boolean
+     */
+    public function isWinner($matchResults, $teamIndex)
     {
-        switch ($index) {
+        switch ($teamIndex) {
             case 0: // In casa
-                return ($result[0] > $result[1]);
+                return ($matchResults[0] > $matchResults[1]);
             case 1: // Ospite
-                return ($result[1] > $result[0]);
+                return ($matchResults[1] > $matchResults[0]);
         }
     }
 
-    public function setWins($result, $index)
-    {
-        $wins = 0;
-        for ($i = 1; $i <= 5; $i++) {
-            $key = "set" . $i;
-            $risultato = $result[$key];
-
-            if (count($risultato) == 1) {
-                continue;
-            }
-
-            switch ($index) {
-                case 0: // In casa
-                    $wins += ($risultato[0] > $risultato[1] ? 1 : 0);
-                    break;
-                case 1: // Ospite
-                    $wins += ($risultato[1] > $risultato[0] ? 1 : 0);
-                    break;
-            }
-        }
-        Log::info('Parser: wins ' . $wins);
-
-        return $wins;
-    }
-
-
-    public function getScore($result)
+    /**
+     * Riporta i punti classifica in base al risultato
+     *
+     * @param array $points punti fatti nel set
+     *
+     * @return array
+     */
+    public function getScore($points)
     {
         // Ricavo il numero di set
-        if ($result[0] > $result[1]) { // Vince la squadra di casa
-            if ($result[0] == $result[1] + 1) {
+        if ($points[0] > $points[1]) { // Vince la squadra di casa
+            if ($points[0] == $points[1] + 1) {
                 return [2, 1];
             } else {
                 return [3, 0];
             }
         } else { // Vince la squadra ospide
-            if ($result[0] + 1 == $result[1]) {
+            if ($points[0] + 1 == $points[1]) {
                 return [1, 2];
             } else {
                 return [0, 3];
@@ -70,58 +66,55 @@ class CPVolleyParser extends Model
         }
     }
 
-    public function getSetInformation($text)
+    /**
+     * Riporta un array di 2 elementi coi punti fatti durante un set.
+     * Nel caso $text non contenga 2 elementi viene riportato un array vuoto.
+     *
+     * @param string $text stringa contenete i risultati (es:"13-25")
+     *
+     * @return array
+     */
+    public function getPointsForSet($text)
     {
-        $dati = explode("-", $text);
+        $dati = explode("-", $this->cleanString($text));
+
+        // Devono esserci solo 2 elementi nell'array
         if (count($dati) != 2) {
+            return [null, null];
+        }
+
+        // Entrambi i campi devono essere numerici
+        if ((!is_numeric($dati[0])) || (!is_numeric($dati[1]))) {
             return [null, null];
         }
 
         return $dati;
     }
 
-    public function parseRounds($url = '')
+    /**
+     * Riporta un array di 2 elementi indicante quale dei 2 team ha vinto il match.
+     * Nel caso $text non contenga 2 elementi viene riportato un array vuoto.
+     *
+     * @param array $array stringa contenete i risultati (es:"3-2")
+     *
+     * @return array
+     */
+    public function getWinner($array)
     {
-        $res = file_get_contents($url);
-
-        $dom = new \DomDocument();
-        @$dom->loadHTML($res);
-        $trs = $dom->getElementsByTagName('table')[1]
-            ->getElementsByTagName('tbody')[0]
-            ->getElementsByTagName('tr');
-
-        // Ogni loop contiene una riga della tabella dei risultati
-        foreach ($trs as $tr) {
-            $tds = $tr->getElementsByTagName('td');
-
-            // Deve contenere precisamente le colonne che voglio io
-            if ($tds->length != 9) {
-                // Log::error($url);
-                Log::error('Parser: Error (length ' . $tds->length . ')');
-
-                return false;
-            }
-
-            // Verifico che il match si sia disputato
-            $risultato = $this->cleanString($tds[3]->textContent);
-            if (!strlen($risultato)) {
-                // Log::info($url);
-                Log::info('Parser: Match senza risultati ' . $tds[1]->textContent . ' - ' . $tds[2]->textContent);
-
-                continue;
-            }
-        }
+        return [$this->isWinner($array, 0), $this->isWinner($array, 1)];
     }
 
-    /*
-     Riporta tutti gli incontri di una determinata giornata (per creare il calendario)
+    /**
+     * Riporta tutti gli incontri di una determinata giornata (per creare il calendario)
+     *
+     * @param string $htmlText testo sorgente
+     *
+     * @return array
      */
-    public function parseRoundMatches($url = '')
+    public function parseRoundMatches($htmlText)
     {
-        $res = file_get_contents($url);
-
         $dom = new \DomDocument();
-        @$dom->loadHTML($res);
+        @$dom->loadHTML($htmlText);
         $trs = $dom->getElementsByTagName('table')[1]
             ->getElementsByTagName('tbody')[0]
             ->getElementsByTagName('tr');
@@ -141,8 +134,8 @@ class CPVolleyParser extends Model
             }
 
             $result = [
-                "date" => $this->cleanString($tds[0]->textContent),
-                "team" => [$tds[1]->textContent, $tds[2]->textContent],
+                "date" => trim($tds[0]->textContent),
+                "team" => [trim($tds[1]->textContent), trim($tds[2]->textContent)],
             ];
 
             array_push($array, $result);
@@ -153,15 +146,17 @@ class CPVolleyParser extends Model
         return $array;
     }
 
-    /*
-     Riporta le location di dove si svolgeranno tutti gli incontri del campionato
+    /**
+     * Riporta le location di dove si svolgeranno tutti gli incontri del campionato
+     *
+     * @param string $htmlText testo sorgente
+     *
+     * @return array
      */
-    public function parseLocationMatches($url = '')
+    public function parseLocationMatches($htmlText)
     {
-        $res = file_get_contents($url);
-
         $dom = new \DomDocument();
-        @$dom->loadHTML($res);
+        @$dom->loadHTML($htmlText);
         $trs = $dom->getElementsByTagName('table')[3]
             ->getElementsByTagName('tbody')[0]
             ->getElementsByTagName('tr');
@@ -184,29 +179,31 @@ class CPVolleyParser extends Model
             }
 
             $result = [
-                "time" => $this->cleanString($tds[2]->textContent),
-                "location" => $tds[3]->textContent,
-                "gym" => $tds[4]->textContent,
-                "team" => [$tds[5]->textContent, $tds[6]->textContent],
+                "time" => trim($tds[2]->textContent),
+                "location" => trim($tds[3]->textContent),
+                "gym" => trim($tds[4]->textContent),
+                "team" => [trim($tds[5]->textContent), trim($tds[6]->textContent)],
             ];
 
             array_push($array, $result);
 
-            Log::info('Parser: Trovato nuovo match ' . $result["team"][0] . " - " . $result["team"][1]);
+            // Log::info('Parser: Trovato nuovo match ' . $result["team"][0] . " - " . $result["team"][1]);
         }
 
         return $array;
     }
 
-    /*
-     Riporta i risultati di una giornata
+    /**
+     *  Riporta i risultati di una giornata
+     *
+     * @param string $htmlText testo sorgente
+     *
+     * @return array
      */
-    public function parseResultMatches($url = '')
+    public function parseResultMatches($htmlText)
     {
-        $res = file_get_contents($url);
-
         $dom = new \DomDocument();
-        @$dom->loadHTML($res);
+        @$dom->loadHTML($htmlText);
         $trs = $dom->getElementsByTagName('table')[1]
             ->getElementsByTagName('tbody')[0]
             ->getElementsByTagName('tr');
@@ -240,12 +237,13 @@ class CPVolleyParser extends Model
                 "team" => [$tds[1]->textContent, $tds[2]->textContent],
                 "set_won" => $setWon,
                 "set_lost" => array_reverse($setWon),
-                "set_1" => $this->getSetInformation($this->cleanString($tds[4]->textContent)),
-                "set_2" => $this->getSetInformation($this->cleanString($tds[5]->textContent)),
-                "set_3" => $this->getSetInformation($this->cleanString($tds[6]->textContent)),
-                "set_4" => $this->getSetInformation($this->cleanString($tds[7]->textContent)),
-                "set_5" => $this->getSetInformation($this->cleanString($tds[8]->textContent)),
+                "set_1" => $this->getPointsForSet($tds[4]->textContent),
+                "set_2" => $this->getPointsForSet($tds[5]->textContent),
+                "set_3" => $this->getPointsForSet($tds[6]->textContent),
+                "set_4" => $this->getPointsForSet($tds[7]->textContent),
+                "set_5" => $this->getPointsForSet($tds[8]->textContent),
                 "score" => $this->getScore($setWon),
+                "winner" => $this->getWinner($setWon),
             ];
 
             array_push($array, $result);
