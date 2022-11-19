@@ -15,7 +15,9 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        //
+        $seasons = Season::all();
+
+        return view('season.index', compact('seasons'));
     }
 
     /**
@@ -25,7 +27,7 @@ class SeasonController extends Controller
      */
     public function create()
     {
-        //
+        return view('season.create');
     }
 
     /**
@@ -36,7 +38,15 @@ class SeasonController extends Controller
      */
     public function store(StoreSeasonRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $season = Season::create($validatedData);
+
+        $seasons = Season::all();
+        return redirect('season.index', compact('seasons'));
+
     }
 
     /**
@@ -47,7 +57,7 @@ class SeasonController extends Controller
      */
     public function show(Season $season)
     {
-        //
+        return view('season.show', compact('season'));
     }
 
     /**

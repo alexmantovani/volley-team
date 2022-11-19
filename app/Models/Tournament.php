@@ -9,6 +9,8 @@ class Tournament extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function season()
     {
         return $this->belongsTo(Season::class);
@@ -16,7 +18,22 @@ class Tournament extends Model
 
     public function teams()
     {
-        return $this->belongsToMany(Team::class);
+        return $this->belongsToMany(Team::class)
+        ->withPivot([
+            "score",
+            "set_won",
+            "set_lost",
+        ]);
+    }
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    public function rounds()
+    {
+        return $this->results->groupBy('round');
     }
 
 }

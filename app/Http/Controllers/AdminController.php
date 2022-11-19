@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\StatParser;
+use App\Models\CPVolleyParser;
 
 class AdminController extends Controller
 {
@@ -14,8 +14,8 @@ class AdminController extends Controller
 
     public function index()
     {
-        $parser = new StatParser();
-        $parser->parsePage();
+        $parser = new CPVolleyParser();
+// TODO:        $parser->downloadTournamentResults();
 
         return view('admin.index');
     }

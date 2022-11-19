@@ -13,16 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
+        /*
+            Questo modello contiene i risultati di UNA squadra di UNA paartita
+         */
         Schema::create('result_team', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('result_id');
             $table->foreignId('team_id');
 
-            $table->boolean('visitor_team')->default(false);
+            // $table->boolean('visitor_team')->default(false);
             $table->boolean('winner')->default(false);
 
-            $table->tinyInteger('set_wins')->default(0);
+            $table->tinyInteger('score')->default(0);
+            $table->tinyInteger('set_won')->default(0);
+            $table->tinyInteger('set_lost')->default(0);
+            $table->tinyInteger('set_1')->nullable();
+            $table->tinyInteger('set_2')->nullable();
+            $table->tinyInteger('set_3')->nullable();
+            $table->tinyInteger('set_4')->nullable();
+            $table->tinyInteger('set_5')->nullable();
 
             $table->timestamps();
         });

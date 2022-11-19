@@ -19,7 +19,13 @@ return new class extends Migration
             $table->foreignId('team_id');
             $table->foreignId('tournament_id');
 
+            // TODO: utilizzare questo campo per fare la ricerda del team mentre si parserizza
             $table->string('parser_name')->nullable(); // Nome che ha questa squadra sul sito da cui attingo i dati
+
+            // Dati per il ranking (classifica)
+            $table->tinyInteger('score')->nullable();
+            $table->tinyInteger('set_won')->nullable();
+            $table->tinyInteger('set_lost')->nullable();
 
             $table->timestamps();
         });

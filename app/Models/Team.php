@@ -13,7 +13,12 @@ class Team extends Model
 
     public function tournaments()
     {
-        return $this->belongsToMany(Tournament::class);
+        return $this->belongsToMany(Tournament::class)
+            ->withPivot([
+                "score",
+                "set_won",
+                "set_lost",
+            ]);
     }
 
     public function players()
@@ -23,7 +28,17 @@ class Team extends Model
 
     public function results()
     {
-        return $this->belongsToMany(Result::class);
+        return $this->belongsToMany(Result::class)
+            ->withPivot([
+                'winner',
+                'score',
+                'set_won',
+                'set_lost',
+                'set_1',
+                'set_2',
+                'set_3',
+                'set_4',
+                'set_5',
+            ]);
     }
-
 }

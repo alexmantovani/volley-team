@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->id();
 
-            // $table->foreignId('season_id');
+            $table->foreignId('season_id');
 
             $table->string('name');
             $table->string('description')->nullable();
+
+            $table->string('query')->nullable();
 
             $table->timestamps();
         });

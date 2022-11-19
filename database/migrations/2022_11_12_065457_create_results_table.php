@@ -16,8 +16,19 @@ return new class extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
 
-            // $table->foreignId('home_team_id');
-            // $table->foreignId('visitor_team_id');
+            $table->foreignId('tournament_id');
+            $table->foreignId('home_team_id');
+            $table->foreignId('visitor_team_id');
+
+            $table->tinyInteger('round')->nullable();
+
+            $table->string('name')->nullable();
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
+
+            // TODO: Andranno poi messe su una tabella a parte
+            $table->string('location')->nullable();
+            $table->string('gym')->nullable();
 
             $table->timestamps();
         });
