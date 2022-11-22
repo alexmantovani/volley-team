@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seasons', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name')->unique();
-            $table->string('description')->nullable();
-            $table->boolean('favorite')->default(true);
+            $table->string('key')->unique();
+            $table->string('value');
 
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seasons');
+        Schema::dropIfExists('settings');
     }
 };

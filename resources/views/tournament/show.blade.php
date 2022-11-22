@@ -70,6 +70,32 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="row mb-3">
+                                    <label for="address"
+                                        class="col-md-4 col-form-label text-md-end">{{ __('Autosync') }}</label>
+
+                                    <div class="col-md-6 ">
+                                        <label class="switch mt-1">
+                                            <input type="checkbox">
+                                            <span class="slider round"></span>
+                                        </label>
+                                        dfddf
+                                    </div>
+
+                                    {{-- <div class="col-md-6">
+                                        <input id="address" type="text"
+                                            class="form-control @error('address') is-invalid @enderror" name="address"
+                                            value="{{ $tournament->query }}" required autocomplete="address">
+
+                                        @error('address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div> --}}
+                                </div>
+
                             </div>
 
                             <div class="col-md-10" style="text-align: right">
@@ -191,7 +217,7 @@
                                     Set persi
                                 </td>
                             </tr>
-                        @foreach ($ranking as $team)
+                            @foreach ($ranking as $team)
                                 <tr>
                                     <td>
                                         <div class="h5">

@@ -18,11 +18,11 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
-    {{-- Custom --}}
-    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -117,9 +117,28 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
-        </main>
+        @guest
+            <main class="py-4">
+                @yield('content')
+            </main>
+        @else
+            <div id="wrapper">
+                {{-- @yield('sidebar') --}}
+                @include('layouts.sidebar')
+
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <main class="py-4">
+                            <div id="app">
+                                @yield('content')
+                            </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        @endguest
+
+
 
         {{-- @include('layouts.footer') --}}
 

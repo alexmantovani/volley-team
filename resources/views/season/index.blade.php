@@ -3,23 +3,24 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="h3">
                     Stagioni
                 </div>
                 <br>
                 <div>
-                    <form method="POST" action="{{ route('season.store') }}" enctype="multipart/form-data" class="row d-flex">
+                    <form method="POST" action="{{ route('season.store') }}" enctype="multipart/form-data">
                         @csrf
+                        <div class="d-flex">
+                            <label for="name" class="col-form-label">{{ __('Nome della nuova stagione') }}</label>
 
-                        <div class="row mb-3">
-                            <label for="name"
-                                class="col-md-3 col-form-label text-md-end">{{ __('Nome della nuova stagione') }}</label>
+                            &nbsp;&nbsp;&nbsp;
 
                             <div class="col-md-6">
                                 <input id="name" type="text"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
-                                    value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    placeholder="es: Stagione 2022/23" value="{{ old('name') }}" required
+                                    autocomplete="name" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -28,32 +29,86 @@
                                 @enderror
                             </div>
 
-                            <div class="col-md-3">
+                            &nbsp;&nbsp;&nbsp;
+
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-plus"></i> &nbsp;&nbsp;
                                     {{ __('Aggiungi nuova stagione') }}
                                 </button>
                             </div>
-                        </div>
                     </form>
-
-                    <br>
-
-                    <div class="row">
-                        <table class="table table-borderless align-middle">
-                            @foreach ($seasons as $season)
-                            <tr>
-                                <td>
-                                    <a href="{{ route('season.show', $season) }}">
-                                        {{ $season->name }}
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </table>
-                    </div>
-
                 </div>
             </div>
+
+            @php $activeSeason = App\Models\Season::active(); @endphp
+            @if ($activeSeason)
+                <div class="h3 pt-4">
+                    Stagione in corso
+                </div>
+
+                <table class="table table-borderless align-middle">
+                    <tr>
+                        <td class="h5">
+                            {{ $activeSeason->name }}
+                        </td>
+                        <td style="width: 30px">
+                            <a href="{{ route('season.show', $activeSeason) }}" class="btn btn-xs btn-primary">
+                                <i class="fa fa-edit fa-fw"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    @foreach ($activeSeason->tournaments as $tournament)
+                        <tr>
+                            <td>
+                                <div class="pl-5" style="padding-left: 40px">
+                                    <a href="{{ route('tournament.show', [$activeSeason, $tournament]) }}">
+                                        {{ $tournament->name }}
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            @endif
+
+            <div class="h3 pt-4">
+                Elenco stagioni
+            </div>
+
+            <div class=" pt-3">
+                <table class="table table-borderless align-middle">
+                    @foreach ($seasons as $season)
+                        @if ($season->id == $activeSeason->id)
+                            @continue
+                        @endif
+                        <tr>
+                            <td class="h5">
+                                {{ $season->name }}
+                            </td>
+                            <td style="width: 30px">
+                                <a href="{{ route('season.show', $season) }}" class="btn btn-xs btn-primary">
+                                    <i class="fa fa-edit fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                        @foreach ($season->tournaments as $tournament)
+                            <tr>
+                                <td>
+                                    <div class="pl-5" style="padding-left: 40px">
+                                        <a href="{{ route('tournament.show', [$season, $tournament]) }}">
+                                            {{ $tournament->name }}
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endforeach
+
+                </table>
+            </div>
         </div>
-    @endsection
+
+    </div>
+@endsection

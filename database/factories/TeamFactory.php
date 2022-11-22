@@ -38,7 +38,7 @@ class TeamFactory extends Factory
         ];
 
         return [
-            'name' => $items[$number++],
+            'name' => $items[$number++ & 0x0F],
         ];
     }
 }

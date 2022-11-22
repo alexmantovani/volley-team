@@ -20,8 +20,8 @@ return new class extends Migration
 
             $table->string('name');
             $table->string('description')->nullable();
-
             $table->string('query')->nullable();
+            $table->boolean('autosync')->default(true);
 
             $table->timestamps();
         });

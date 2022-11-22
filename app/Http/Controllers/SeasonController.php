@@ -15,7 +15,7 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        $seasons = Season::all();
+        $seasons = Season::all()->sortBy('name');
 
         return view('season.index', compact('seasons'));
     }
@@ -45,8 +45,7 @@ class SeasonController extends Controller
         $season = Season::create($validatedData);
 
         $seasons = Season::all();
-        return redirect('season.index', compact('seasons'));
-
+        return redirect()->route('season.index', compact('seasons'));
     }
 
     /**
@@ -80,7 +79,12 @@ class SeasonController extends Controller
      */
     public function update(UpdateSeasonRequest $request, Season $season)
     {
-        //
+        $season->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return back()->withInput();
     }
 
     /**
@@ -92,5 +96,13 @@ class SeasonController extends Controller
     public function destroy(Season $season)
     {
         //
+    }
+
+    public function activate($seasonId)
+    {
+        $season = Season::find($seasonId);
+        $season->setActive();
+
+        return "Done " . $season->id;
     }
 }
