@@ -79,8 +79,10 @@
             <div class=" pt-3">
                 <table class="table table-borderless align-middle">
                     @foreach ($seasons as $season)
-                        @if ($season->id == $activeSeason->id)
-                            @continue
+                        @if ($activeSeason)
+                            @if ($season->id == $activeSeason->id)
+                                @continue
+                            @endif
                         @endif
                         <tr>
                             <td class="h5">
