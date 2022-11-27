@@ -15,7 +15,7 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        $seasons = Season::all()->sortBy('name');
+        $seasons = Season::all();
 
         return view('season.index', compact('seasons'));
     }
@@ -95,7 +95,11 @@ class SeasonController extends Controller
      */
     public function destroy(Season $season)
     {
-        //
+        Season::destroy($season->id);
+
+        // TODO: Cancellare anche tutti i tornei ad essa associati
+
+        return redirect(route('season.index'));
     }
 
     public function activate($seasonId)

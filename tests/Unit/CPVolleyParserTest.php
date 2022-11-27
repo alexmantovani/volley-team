@@ -4,11 +4,14 @@ namespace Tests\Unit;
 
 // use PHPUnit\Framework\TestCase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use \App\Models\CPVolleyParser;
 use Illuminate\Support\Facades\Log;
 
 class CPVolleyParserTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic unit test example.
      *

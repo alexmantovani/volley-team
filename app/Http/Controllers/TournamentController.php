@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Models\CPVolleyParser;
 use Illuminate\Support\Facades\Log;
 
-
 class TournamentController extends Controller
 {
     /**
@@ -66,15 +65,15 @@ class TournamentController extends Controller
      */
     public function show(Season $season, Tournament $tournament)
     {
-        $ranking = $tournament->teams
-        ->sortBy([
-                ['pivot.score', 'desc'],
-                ['pivot.set_won', 'desc'],
-                ['pivot.set_lost', 'asc'],
-                ['name', 'asc'],
-            ]);
+        // $ranking = $tournament->teams
+        //     ->sortBy([
+        //         ['pivot.score', 'desc'],
+        //         ['pivot.set_won', 'desc'],
+        //         ['pivot.set_lost', 'asc'],
+        //         ['name', 'asc'],
+        //     ]);
 
-        return view('tournament.show', compact('season', 'tournament', 'ranking'));
+        return view('tournament.show', compact('season', 'tournament'));
     }
 
     /**
@@ -265,6 +264,9 @@ class TournamentController extends Controller
             }
         }
 
+        // Una volta scaricati i dati, ricalcolo la classifica
+        $tournament->updateRanking();
+
         return back()->withInput();
     }
 
@@ -286,5 +288,17 @@ class TournamentController extends Controller
         //         ]
         //     ]);
         // }
+    }
+
+    public function sync(Request $request, Season $season, Tournament $tournament)
+    {
+        if ($request->has('checked')) {
+            $checked = ($request->query('checked') == 'true');
+            $tournament->update([
+                'autosync' => $checked,
+            ]);
+            return $checked;
+        }
+        return "ERRORE 500"; // TODO: andare in errore 500
     }
 }

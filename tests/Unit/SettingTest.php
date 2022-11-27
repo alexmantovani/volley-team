@@ -4,10 +4,13 @@ namespace Tests\Unit;
 
 // use PHPUnit\Framework\TestCase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use \App\Models\Setting;
 
 class SettingTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Test dei get e set.
      *

@@ -5,16 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="d-flex">
+                    <div class="d-flex justify-content-between">
                         <div class="pt-2">
                             <p class="fs-3 text-black-50 pb-0 mb-0">Dettaglio <span
                                     class="fw-bold fs-3">{{ $season->name }}</span>
-
-
                             </p>
-                            {{-- <small>
-                                <a href="{{ route('season.index') }}"><i class="fa fa-angle-left"></i> indietro</a>
-                            </small> --}}
                             <span class="badge p-2 indicator"
                                 style="background-color: rgb(18, 141, 1); color: rgb(255, 255, 255); display: {{ $season->is_active ? 'block' : 'none' }} ">
                                 IN CORSO
@@ -35,7 +30,7 @@
                             onclick="return confirm('Vuoi davvero eliminare questa stagione?');">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
-                            <button type="submit" class="btn btn-sm fa p-0 m-0" style="color: red;height: 80px">
+                            <button type="submit" class="btn btn-outline-danger mt-3">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </form>
@@ -45,8 +40,8 @@
 
                 <div class="row">
 
-                    <div class="col-lg-8">
-                        <div class="card h-100 m-3">
+                    <div class="col-lg-9">
+                        <div class="card mt-3">
                             <div class="card-body">
 
                                 <form method="POST" action="{{ route('season.update', $season) }}">
@@ -55,7 +50,7 @@
                                     <div class="form-group col-md-12 pt-2">
                                         <div class="row mb-3">
                                             <label for="name"
-                                                class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
+                                                class="col-md-3 col-form-label text-md-end">{{ __('Name') }}</label>
 
                                             <div class="col-md-9">
                                                 <input id="name" type="text"
@@ -72,7 +67,7 @@
 
                                         <div class="row mb-3">
                                             <label for="description"
-                                                class="col-md-2 col-form-label text-md-end">{{ __('Description') }}</label>
+                                                class="col-md-3 col-form-label text-md-end">{{ __('Description') }}</label>
 
                                             <div class="col-md-9">
                                                 <input id="description" type="text"
@@ -90,7 +85,7 @@
 
                                     </div>
 
-                                    <div class="col-md-10" style="text-align: right">
+                                    <div class="col-md-12" style="text-align: right">
                                         <button type="submit" class="btn btn-primary">Salva modifiche</button>
                                     </div>
                                 </form>
@@ -98,27 +93,38 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card m-3 h-100">
-                            <div class="card-body">
+                    <div class="col-lg-3 mt-3">
+                        <div class="card h-100 border-0">
+                            <img src="{{ asset('images/season_logo.png') }}" style="height: 182px;border-radius: 10px;"
+                                alt="{{ asset('images/season_logo.png') }}">
 
-                                aaa
-                            </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="pt-4 h3">
+                    Tornei
+                </div>
 
-
-
-
-                <table class="tbl-standard charts top-scorers">
+                <table class="table table-borderless align-middle mt-3">
                     @foreach ($season->tournaments as $tournament)
                         <tr>
-                            <td>
-                                <a href="{{ route('tournament.show', [$season, $tournament]) }}">
-                                    {{ $tournament->name }}
+                            <td style="width: 30px;">
+                                <a href="{{ route('tournament.show', [$season, $tournament]) }}" class="button">
+                                    <i class="fa fa-edit"></i>
                                 </a>
+                            </td>
+                            <td>
+                                <div class="h5 mb-0">
+                                    {{ $tournament->name }}
+                                </div>
+                                <div class="small m-0 text-black-50">
+                                    {{ $tournament->description }}
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                {{ $tournament->rounds()->count() }} giornate &middot; {{ $tournament->teams->count() }}
+                                squadre
                             </td>
                         </tr>
                     @endforeach

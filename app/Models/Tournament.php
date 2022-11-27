@@ -19,6 +19,7 @@ class Tournament extends Model
     public function teams()
     {
         return $this->belongsToMany(Team::class)
+            ->using(Ranking::class)
             ->withPivot([
                 "score",
                 "match_won",
@@ -26,6 +27,15 @@ class Tournament extends Model
                 "set_won",
                 "set_lost",
             ]);
+    }
+
+    public function ranking()
+    {
+        return $this->teams()
+            ->orderByPivot('score', 'desc')
+            ->orderByPivot('match_won', 'desc')
+            ->orderByPivot('set_won', 'desc')
+            ->orderByPivot('set_lost', 'asc');
     }
 
     public function results()
@@ -60,5 +70,21 @@ class Tournament extends Model
                 ]
             ]);
         }
+    }
+
+
+    /**
+     * Riporta il numero di giornate disputate nel torneo
+     *
+     * @return integer
+     */
+    public function matchDone()
+    {
+        $max = 0;
+        foreach ($this->ranking as $team) {
+            // TODO: Valutare se è il metdo giusto
+            $max = max($max, $team->pivot->match_won + $team->pivot->match_lost);
+        }
+        return $max;
     }
 }

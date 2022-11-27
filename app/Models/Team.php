@@ -13,6 +13,8 @@ class Team extends Model
 
     public function tournaments()
     {
+        // return $this->belongsToMany(Tournament::class)->using(Ranking::class);
+
         return $this->belongsToMany(Tournament::class)
             ->withPivot([
                 "score",

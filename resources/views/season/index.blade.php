@@ -43,33 +43,33 @@
 
             @php $activeSeason = App\Models\Season::active(); @endphp
             @if ($activeSeason)
-                <div class="h3 pt-4">
-                    Stagione in corso
-                </div>
-
-                <table class="table table-borderless align-middle">
-                    <tr>
-                        <td class="h5">
-                            {{ $activeSeason->name }}
-                        </td>
-                        <td style="width: 30px">
-                            <a href="{{ route('season.show', $activeSeason) }}" class="btn btn-xs btn-primary">
-                                <i class="fa fa-edit fa-fw"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    @foreach ($activeSeason->tournaments as $tournament)
-                        <tr>
-                            <td>
-                                <div class="pl-5" style="padding-left: 40px">
-                                    <a href="{{ route('tournament.show', [$activeSeason, $tournament]) }}">
-                                        {{ $tournament->name }}
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <div class="h3">
+                            Stagione in corso
+                        </div>
+                        <table class="table table-borderless align-middle">
+                            <tr>
+                                <td>
+                                    <a href="{{ route('season.show', $activeSeason) }}" class="h5">
+                                        {{ $activeSeason->name }}
                                     </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
+                                </td>
+                            </tr>
+                            @foreach ($activeSeason->tournaments as $tournament)
+                                <tr>
+                                    <td>
+                                        <div class="pl-5" style="padding-left: 40px">
+                                            <a href="{{ route('tournament.show', [$activeSeason, $tournament]) }}">
+                                                {{ $tournament->name }}
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
             @endif
 
             <div class="h3 pt-4">
