@@ -35,7 +35,9 @@ class Tournament extends Model
             ->orderByPivot('score', 'desc')
             ->orderByPivot('match_won', 'desc')
             ->orderByPivot('set_won', 'desc')
-            ->orderByPivot('set_lost', 'asc');
+            ->orderByPivot('set_lost', 'asc')
+            ->orderBy('name')
+            ;
     }
 
     public function results()

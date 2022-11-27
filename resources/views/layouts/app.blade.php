@@ -118,11 +118,7 @@
             </div>
         </nav>
 
-        @guest
-            <main class="py-4">
-                @yield('content')
-            </main>
-        @else
+        @if (str_contains(Request()->path(), 'admin/'))
             <div id="wrapper">
                 {{-- @yield('sidebar') --}}
                 @include('layouts.sidebar')
@@ -137,7 +133,11 @@
                     </div>
                 </div>
             </div>
-        @endguest
+        @else
+            <main class="py-4">
+                @yield('content')
+            </main>
+        @endif
 
 
 

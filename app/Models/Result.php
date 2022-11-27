@@ -68,6 +68,21 @@ class Result extends Model
         return $this->teams[1]->pivot->attributes['set_lost'];
     }
 
+    public function getHomeWinsAttribute()
+    {
+        if ($this->teams()->count() != 2) return "";
+
+        return $this->teams[0]->pivot->attributes['winner'];
+    }
+
+    public function getVisitorWinsAttribute()
+    {
+        if ($this->teams()->count() != 2) return "";
+
+        return $this->teams[1]->pivot->attributes['winner'];
+    }
+
+
     public function teams()
     {
         return $this->belongsToMany(Team::class)

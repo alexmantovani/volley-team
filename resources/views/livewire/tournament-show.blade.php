@@ -49,9 +49,8 @@
 
                                 <div class="col-md-9">
                                     <input id="address" type="text"
-                                        class="form-control @error('address') is-invalid @enderror"
-                                        name="address" value="{{ $tournament->query }}" required
-                                        autocomplete="address">
+                                        class="form-control @error('address') is-invalid @enderror" name="address"
+                                        value="{{ $tournament->query }}" required autocomplete="address">
 
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
@@ -78,12 +77,11 @@
 
                     <a href="{{ route('tournament.download_calendar', [$season, $tournament]) }}"
                         class="btn btn-warning col-md-8 mt-3 offset-md-2
-                        {{ $autosync ? '' : 'disabled' }}"
-                        >
+                        {{ $autosync ? '' : 'disabled' }}">
                         Scarica incontri
                     </a>
                     <a href="{{ route('tournament.download_results', [$season, $tournament]) }}"
-                    class="btn btn-warning col-md-8 mt-3 offset-md-2 {{ $autosync ? '' : 'disabled' }} ">
+                        class="btn btn-warning col-md-8 mt-3 offset-md-2 {{ $autosync ? '' : 'disabled' }} ">
                         Scarica risultati
                     </a>
                 </div>
@@ -91,11 +89,9 @@
                     Aggiorna automaticamente i dati dal sito
                     <span class="custom-switch custom-switch-label" style="float: right">
                         <input class="custom-switch-input" id="sync_tournament" name="sync_tournament"
-                            {{ $tournament->autosync ? 'checked' : '' }} type="checkbox"
-                            {{-- onclick='handleClick(this);'
+                            {{ $tournament->autosync ? 'checked' : '' }} type="checkbox" {{-- onclick='handleClick(this);'
                              data-id="{{ $tournament->id }}" --}}
-                            wire:model="autosync"
-                            />
+                            wire:model="autosync" />
                         <label class="custom-switch-btn" for="sync_tournament"></label>
                     </span>
                 </div>
@@ -111,7 +107,7 @@
                         Giornata {{ $round[0]->round }}
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table  align-middle">
 
                             @foreach ($round as $result)
                                 <tr>
@@ -125,24 +121,28 @@
                                     @endif
                                     <td class="text-black-50 small  col-md-2"
                                         title=" {{ $result->gym }} &middot; {{ $result->location }}">
-
-
                                         {{ $result->date }}
                                         <br>
                                         {{ $result->time }}
                                     </td>
                                     <td class=" col-md-4">
-                                        <div class="h6 text-end">
+                                        <div class="h6 text-end pt-1">
+                                            @if ($result->home_wins)
+                                                <i class="fa-solid fa-trophy" style="color: gold"></i> &nbsp;
+                                            @endif
                                             {{ $result->home_team->name }}
                                         </div>
                                     </td>
                                     <td class=" col-md-4">
-                                        <div class="h6">
+                                        <div class="h6 pt-1">
                                             {{ $result->visitor_team->name }}
+                                            @if ($result->visitor_wins)
+                                            &nbsp; <i class="fa-solid fa-trophy" style="color: gold"></i>
+                                            @endif
                                         </div>
                                     </td>
                                     <td class=" col-md-1">
-                                        <div class="h6">
+                                        <div class="h6 pt-1">
                                             {{ $result->home_set_won }} &middot;
                                             {{ $result->visitor_set_won }}
                                         </div>

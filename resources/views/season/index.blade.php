@@ -86,11 +86,8 @@
                         @endif
                         <tr>
                             <td class="h5">
-                                {{ $season->name }}
-                            </td>
-                            <td style="width: 30px">
-                                <a href="{{ route('season.show', $season) }}" class="btn btn-xs btn-primary">
-                                    <i class="fa fa-edit fa-fw"></i>
+                                <a href="{{ route('season.show', $season) }}" class="h5">
+                                    {{ $season->name }}
                                 </a>
                             </td>
                         </tr>

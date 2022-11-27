@@ -89,7 +89,7 @@ class TournamentTest extends TestCase
         $tournament->updateRanking();
         $ranking = $tournament->ranking()->pluck('team_id')->toArray();
 
-        $this->assertEquals($ranking, [9, 10, 1, 2, 3, 4, 5, 6, 7, 8]);
+        $this->assertEquals($ranking, [9, 10, 5, 7, 3, 1, 4, 8, 6, 2]);
     }
 
     public function test_ranking_2()
@@ -111,7 +111,7 @@ class TournamentTest extends TestCase
         $tournament->updateRanking();
         $ranking = $tournament->ranking()->pluck('team_id')->toArray();
 
-        $this->assertEquals($ranking, [1, 9, 4, 3, 10, 5, 6, 7, 8, 2]);
+        $this->assertEquals($ranking, [1, 9, 4, 3, 10, 7, 5, 6, 8, 2]);
     }
 
     public function test_ranking_3()
@@ -130,6 +130,6 @@ class TournamentTest extends TestCase
         $tournament->updateRanking();
         $ranking = $tournament->ranking()->pluck('team_id')->toArray();
 
-        $this->assertEquals($ranking, [3, 1, 5, 4, 6, 2, 7, 8, 9, 10]);
+        $this->assertEquals($ranking, [3, 1, 5, 4, 6, 2, 9, 7, 8, 10]);
     }
 }
