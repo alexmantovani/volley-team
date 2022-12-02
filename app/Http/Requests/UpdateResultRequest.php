@@ -13,7 +13,7 @@ class UpdateResultRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,22 @@ class UpdateResultRequest extends FormRequest
      */
     public function rules()
     {
+        // TODO: Verificare i dati
+
+        // request =
+        // "home_score" => "0"
+        // "visitor_score" => "3"
+        // "home_set_1" => "14"
+        // "visitor_set_1" => "25"
+        // "home_set_2" => "13"
+        // "visitor_set_2" => "25"
+        // "home_set_3" => "17"
+        // "visitor_set_3" => "25"
+        // "home_set_4" => null
+        // "visitor_set_4" => null
+        // "home_set_5" => null
+        // "visitor_set_5" => null
+
         return [
             //
         ];

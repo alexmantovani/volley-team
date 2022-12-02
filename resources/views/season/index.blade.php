@@ -4,8 +4,13 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <div class="h3">
-                    Stagioni
+                <div>
+                    <div class="h3">
+                        Stagioni
+                    </div>
+                    <small>
+                        <a onclick="window.history.back();"><i class="fa fa-angle-left"></i> indietro</a>
+                    </small>
                 </div>
                 <br>
                 <div>

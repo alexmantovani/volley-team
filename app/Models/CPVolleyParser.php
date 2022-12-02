@@ -11,6 +11,9 @@ class CPVolleyParser extends Model
 {
     use HasFactory;
 
+    public const HOME_TEAM = 0;
+    public const VISITOR_TEAM = 1;
+
     /**
      * Riporta una stringa ripulita da eventiali caratteri "invisibili"
      * Rimuove anche gli spazi tra le parole (/sa trim())
@@ -18,7 +21,7 @@ class CPVolleyParser extends Model
      * @param string $str stringa da ripulire
      * @return string
      */
-    function cleanString($str)
+    public static function cleanString($str)
     {
         return str_replace(array("\r\n", "\r", "\n", "\t", " "), '', $str);
     }
@@ -31,13 +34,13 @@ class CPVolleyParser extends Model
      *
      * @return boolean
      */
-    public function isWinner($matchResults, $teamIndex)
+    public static function isWinner($matchResults, $teamIndex)
     {
         switch ($teamIndex) {
-            case 0: // In casa
-                return ($matchResults[0] > $matchResults[1]);
+            case CPVolleyParser::HOME_TEAM: // In casa
+                return ($matchResults[CPVolleyParser::HOME_TEAM] > $matchResults[CPVolleyParser::VISITOR_TEAM]);
             case 1: // Ospite
-                return ($matchResults[1] > $matchResults[0]);
+                return ($matchResults[CPVolleyParser::VISITOR_TEAM] > $matchResults[CPVolleyParser::HOME_TEAM]);
         }
     }
 
@@ -48,7 +51,7 @@ class CPVolleyParser extends Model
      *
      * @return array
      */
-    public function getScore($points)
+    public static function getScore($points)
     {
         // Ricavo il numero di set
         if ($points[0] > $points[1]) { // Vince la squadra di casa
@@ -74,9 +77,9 @@ class CPVolleyParser extends Model
      *
      * @return array
      */
-    public function getPointsForSet($text)
+    public static function getPointsForSet($text)
     {
-        $dati = explode("-", $this->cleanString($text));
+        $dati = explode("-", CPVolleyParser::cleanString($text));
 
         // Devono esserci solo 2 elementi nell'array
         if (count($dati) != 2) {
@@ -99,9 +102,9 @@ class CPVolleyParser extends Model
      *
      * @return array
      */
-    public function getWinner($array)
+    public static function getWinner($array)
     {
-        return [$this->isWinner($array, 0), $this->isWinner($array, 1)];
+        return [CPVolleyParser::isWinner($array, CPVolleyParser::HOME_TEAM), CPVolleyParser::isWinner($array, CPVolleyParser::VISITOR_TEAM)];
     }
 
     /**
@@ -140,7 +143,7 @@ class CPVolleyParser extends Model
 
             array_push($array, $result);
 
-            Log::info('Parser: Trovato nuovo match ' . $result["team"][0] . " - " . $result["team"][1]);
+            Log::info('Parser: Trovato nuovo match ' . $result["team"][CPVolleyParser::HOME_TEAM] . " - " . $result["team"][CPVolleyParser::VISITOR_TEAM]);
         }
 
         return $array;

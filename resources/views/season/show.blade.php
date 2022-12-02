@@ -14,6 +14,10 @@
                                 style="background-color: rgb(18, 141, 1); color: rgb(255, 255, 255); display: {{ $season->is_active ? 'block' : 'none' }} ">
                                 IN CORSO
                             </span>
+                            <small>
+                                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i> indietro</a>
+                            </small>
+
                         </div>
                         <div class="mt-3">
 

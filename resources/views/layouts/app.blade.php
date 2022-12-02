@@ -64,21 +64,26 @@
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Contatti') }}</a>
                         </li> --}}
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                Fotogallery
-                            </a>
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Fotogallery
+                        </a>
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('register') }}">
-                                    {{ __('Impostazioni personali') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('register') }}">
-                                    {{ __('Impostazioni personali') }}
-                                </a>
-                            </div>
-                        </li>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('register') }}">
+                                {{ __('Impostazioni personali') }}
+                            </a>
+                            <a class="dropdown-item" href="{{ route('register') }}">
+                                {{ __('Impostazioni personali') }}
+                            </a>
+                        </div>
+                    </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Admin') }}</a>
+                                            </li>
 
                         <!-- Authentication Links -->
                         @guest

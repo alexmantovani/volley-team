@@ -21,37 +21,42 @@ class CPVolleyParserTest extends TestCase
     {
         $parser = new CPVolleyParser();
 
-        $this->assertTrue($parser->isWinner(['3', '0'], 0));
+        $this->assertTrue($parser->isWinner(['3', '0'], CPVolleyParser::HOME_TEAM));
 
-        $this->assertTrue($parser->isWinner([3, 0], 0));
-        $this->assertTrue($parser->isWinner([3, 1], 0));
-        $this->assertTrue($parser->isWinner([3, 2], 0));
-        $this->assertTrue($parser->isWinner([2, 0], 0));
-        $this->assertTrue($parser->isWinner([2, 1], 0));
-        $this->assertTrue($parser->isWinner([1, 0], 0));
+        $this->assertTrue($parser->isWinner([3, 0], CPVolleyParser::HOME_TEAM));
+        $this->assertTrue($parser->isWinner([3, 1], CPVolleyParser::HOME_TEAM));
+        $this->assertTrue($parser->isWinner([3, 2], CPVolleyParser::HOME_TEAM));
+        $this->assertTrue($parser->isWinner([2, 0], CPVolleyParser::HOME_TEAM));
+        $this->assertTrue($parser->isWinner([2, 1], CPVolleyParser::HOME_TEAM));
+        $this->assertTrue($parser->isWinner([1, 0], CPVolleyParser::HOME_TEAM));
 
-        $this->assertTrue($parser->isWinner([0, 3], 1));
-        $this->assertTrue($parser->isWinner([1, 3], 1));
-        $this->assertTrue($parser->isWinner([2, 3], 1));
-        $this->assertTrue($parser->isWinner([0, 2], 1));
-        $this->assertTrue($parser->isWinner([1, 2], 1));
-        $this->assertTrue($parser->isWinner([0, 1], 1));
+        $this->assertTrue($parser->isWinner([0, 3], CPVolleyParser::VISITOR_TEAM));
+        $this->assertTrue($parser->isWinner([1, 3], CPVolleyParser::VISITOR_TEAM));
+        $this->assertTrue($parser->isWinner([2, 3], CPVolleyParser::VISITOR_TEAM));
+        $this->assertTrue($parser->isWinner([0, 2], CPVolleyParser::VISITOR_TEAM));
+        $this->assertTrue($parser->isWinner([1, 2], CPVolleyParser::VISITOR_TEAM));
+        $this->assertTrue($parser->isWinner([0, 1], CPVolleyParser::VISITOR_TEAM));
 
-        $this->assertFalse($parser->isWinner([3, 0], 1));
-        $this->assertFalse($parser->isWinner([3, 1], 1));
-        $this->assertFalse($parser->isWinner([3, 2], 1));
-        $this->assertFalse($parser->isWinner([2, 0], 1));
-        $this->assertFalse($parser->isWinner([2, 1], 1));
-        $this->assertFalse($parser->isWinner([1, 0], 1));
+        $this->assertFalse($parser->isWinner([3, 0], CPVolleyParser::VISITOR_TEAM));
+        $this->assertFalse($parser->isWinner([3, 1], CPVolleyParser::VISITOR_TEAM));
+        $this->assertFalse($parser->isWinner([3, 2], CPVolleyParser::VISITOR_TEAM));
+        $this->assertFalse($parser->isWinner([2, 0], CPVolleyParser::VISITOR_TEAM));
+        $this->assertFalse($parser->isWinner([2, 1], CPVolleyParser::VISITOR_TEAM));
+        $this->assertFalse($parser->isWinner([1, 0], CPVolleyParser::VISITOR_TEAM));
 
-        $this->assertFalse($parser->isWinner([0, 3], 0));
-        $this->assertFalse($parser->isWinner([1, 3], 0));
-        $this->assertFalse($parser->isWinner([2, 3], 0));
-        $this->assertFalse($parser->isWinner([0, 2], 0));
-        $this->assertFalse($parser->isWinner([1, 2], 0));
-        $this->assertFalse($parser->isWinner([0, 1], 0));
+        $this->assertFalse($parser->isWinner([0, 3], CPVolleyParser::HOME_TEAM));
+        $this->assertFalse($parser->isWinner([1, 3], CPVolleyParser::HOME_TEAM));
+        $this->assertFalse($parser->isWinner([2, 3], CPVolleyParser::HOME_TEAM));
+        $this->assertFalse($parser->isWinner([0, 2], CPVolleyParser::HOME_TEAM));
+        $this->assertFalse($parser->isWinner([1, 2], CPVolleyParser::HOME_TEAM));
+        $this->assertFalse($parser->isWinner([0, 1], CPVolleyParser::HOME_TEAM));
     }
 
+    public function test_isWinner_2()
+    {
+        $this->assertTrue(CPVolleyParser::isWinner(['3', '0'], CPVolleyParser::HOME_TEAM));
+        $this->assertTrue(CPVolleyParser::isWinner([0, 2], CPVolleyParser::VISITOR_TEAM));
+    }
 
     public function test_getWinner()
     {

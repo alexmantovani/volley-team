@@ -290,15 +290,15 @@ class TournamentController extends Controller
         // }
     }
 
-    public function sync(Request $request, Season $season, Tournament $tournament)
-    {
-        if ($request->has('checked')) {
-            $checked = ($request->query('checked') == 'true');
-            $tournament->update([
-                'autosync' => $checked,
-            ]);
-            return $checked;
-        }
-        return "ERRORE 500"; // TODO: andare in errore 500
-    }
+    // public function sync(Request $request, Season $season, Tournament $tournament)
+    // {
+    //     if ($request->has('checked')) {
+    //         $checked = ($request->query('checked') == 'true');
+    //         $tournament->update([
+    //             'autosync' => $checked,
+    //         ]);
+    //         return $checked;
+    //     }
+    //     return "ERRORE 500"; // TODO: andare in errore 500
+    // }
 }

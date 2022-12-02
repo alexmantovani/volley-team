@@ -30,58 +30,57 @@ class Result extends Model
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[0]->pivot->attributes['score'];
+        return $this->teams[CPVolleyParser::HOME_TEAM]->pivot->attributes['score'];
     }
 
     public function getVisitorScoreAttribute()
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[1]->pivot->attributes['score'];
+        return $this->teams[CPVolleyParser::VISITOR_TEAM]->pivot->attributes['score'];
     }
 
     public function getHomeSetWonAttribute()
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[0]->pivot->attributes['set_won'];
+        return $this->teams[CPVolleyParser::HOME_TEAM]->pivot->attributes['set_won'];
     }
 
     public function getVisitorSetWonAttribute()
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[1]->pivot->attributes['set_won'];
+        return $this->teams[CPVolleyParser::VISITOR_TEAM]->pivot->attributes['set_won'];
     }
 
     public function getHomeSetLostAttribute()
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[0]->pivot->attributes['set_lost'];
+        return $this->teams[CPVolleyParser::HOME_TEAM]->pivot->attributes['set_lost'];
     }
 
     public function getVisitorSetLostAttribute()
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[1]->pivot->attributes['set_lost'];
+        return $this->teams[CPVolleyParser::VISITOR_TEAM]->pivot->attributes['set_lost'];
     }
 
     public function getHomeWinsAttribute()
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[0]->pivot->attributes['winner'];
+        return $this->teams[CPVolleyParser::HOME_TEAM]->pivot->attributes['winner'];
     }
 
     public function getVisitorWinsAttribute()
     {
         if ($this->teams()->count() != 2) return "";
 
-        return $this->teams[1]->pivot->attributes['winner'];
+        return $this->teams[CPVolleyParser::VISITOR_TEAM]->pivot->attributes['winner'];
     }
-
 
     public function teams()
     {
@@ -98,5 +97,10 @@ class Result extends Model
                 'set_4',
                 'set_5',
             ]);
+    }
+
+    public function images()
+    {
+        return $this->morphMany('App\Image', 'imageable');
     }
 }

@@ -88,9 +88,8 @@
                 <div class="card-body">
                     Aggiorna automaticamente i dati dal sito
                     <span class="custom-switch custom-switch-label" style="float: right">
-                        <input class="custom-switch-input" id="sync_tournament" name="sync_tournament"
-                            {{ $tournament->autosync ? 'checked' : '' }} type="checkbox" {{-- onclick='handleClick(this);'
-                             data-id="{{ $tournament->id }}" --}}
+                        <input class="custom-switch-input" id="sync_tournament" name="sync_tournament" type="checkbox"
+                        wire:click="updateAutosync"
                             wire:model="autosync" />
                         <label class="custom-switch-btn" for="sync_tournament"></label>
                     </span>
@@ -111,9 +110,9 @@
 
                             @foreach ($round as $result)
                                 <tr>
-                                    @if (!$autosync)
+                                    @if (!$this->autosync)
                                         <td class=" col-md-1">
-                                            <a href="{{ route('tournament.show', [$season, $tournament]) }}"
+                                            <a href="{{ route('result.show', $result) }}"
                                                 class="btn btn-xs">
                                                 <i class="fa fa-edit fa-fw"></i>
                                             </a>

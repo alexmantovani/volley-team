@@ -35,18 +35,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        function handleClick(element) {
-            var stato = document.getElementById('sync_tournament').checked;
-            $.ajax({
-                url: "{{ route('tournament.sync', [$season->id, $tournament->id]) }}?checked=" + stato
-            }).done(function(data) {
-                //TODO: disabilito i 2 pulsanti "Scarica incontri e risultati"
-                // item.style.display = 'none'; // Hide
-                console.log("Done " + data);
-            });
-        }
-    </script>
-@endpush
