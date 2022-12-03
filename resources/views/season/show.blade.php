@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="d-flex justify-content-between">
                         <div class="pt-2">
-                            <p class="fs-3 text-black-50 pb-0 mb-0">Dettaglio <span
+                            <p class="fs-3 text-black-50 pb-0 mb-0">Stagione <span
                                     class="fw-bold fs-3">{{ $season->name }}</span>
                             </p>
                             <span class="badge p-2 indicator"
@@ -15,7 +15,7 @@
                                 IN CORSO
                             </span>
                             <small>
-                                <a onclick="window.history.back();"><i class="fa fa-angle-left"></i> indietro</a>
+                                <a href="{{ route('season.index') }}"><i class="fa fa-angle-left"></i> indietro</a>
                             </small>
 
                         </div>

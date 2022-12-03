@@ -123,28 +123,9 @@
             </div>
         </nav>
 
-        @if (str_contains(Request()->path(), 'admin/'))
-            <div id="wrapper">
-                {{-- @yield('sidebar') --}}
-                @include('layouts.sidebar')
-
-                <div id="page-content-wrapper">
-                    <div class="container-fluid">
-                        <main class="py-4">
-                            <div id="app">
-                                @yield('content')
-                            </div>
-                        </main>
-                    </div>
-                </div>
-            </div>
-        @else
-            <main class="py-4">
-                @yield('content')
-            </main>
-        @endif
-
-
+        <main class="py-4">
+            @yield('content')
+        </main>
 
         {{-- @include('layouts.footer') --}}
 

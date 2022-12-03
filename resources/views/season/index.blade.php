@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div>
                     <div class="h3">
                         Stagioni
@@ -24,7 +24,7 @@
                             <div class="col-md-6">
                                 <input id="name" type="text"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
-                                    placeholder="es: Stagione 2022/23" value="{{ old('name') }}" required
+                                    placeholder="es: 2022/23" value="{{ old('name') }}" required
                                     autocomplete="name" autofocus>
 
                                 @error('name')
@@ -50,15 +50,19 @@
             @if ($activeSeason)
                 <div class="card mt-4">
                     <div class="card-body">
-                        <div class="h3">
-                            Stagione in corso
-                        </div>
                         <table class="table table-borderless align-middle">
                             <tr>
                                 <td>
                                     <a href="{{ route('season.show', $activeSeason) }}" class="h5">
                                         {{ $activeSeason->name }}
                                     </a>
+                                </td>
+                                <td class="text-end">
+                                    <div class="badge bg-info p-2" style="color: white;">
+                                        <small>
+                                            IN CORSO
+                                        </small>
+                                    </div>
                                 </td>
                             </tr>
                             @foreach ($activeSeason->tournaments as $tournament)
@@ -70,6 +74,11 @@
                                             </a>
                                         </div>
                                     </td>
+                                    <td class="text-end">
+                                        {{ $tournament->rounds()->count() }} giornate &middot; {{ $tournament->teams->count() }}
+                                        squadre
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </table>

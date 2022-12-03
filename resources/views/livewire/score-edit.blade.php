@@ -40,7 +40,7 @@
                             <input id="home_set_{{ $i }}" type="text"
                                 class="form-control @error('home_set_{{ $i }}') is-invalid @enderror text-end"
                                 name="home_set_{{ $i }}" wire:model="homeSet.{{ $i - 1 }}"
-                                wire:change="scoreUpdate" {{ $this->editabled ? '' : 'disabled' }}>
+                                wire:change="scoreUpdate" {{ $this->editabled ? null : 'disabled' }}>
 
                             @error('home_set_{{ $i }}')
                                 <span class="invalid-feedback" role="alert">
@@ -55,7 +55,7 @@
                             <input id="visitor_set_{{ $i }}" type="text"
                                 class="form-control @error('visitor_set_{{ $i }}') is-invalid @enderror"
                                 name="visitor_set_{{ $i }}" wire:model="visitorSet.{{ $i - 1 }}"
-                                wire:change="scoreUpdate" {{ $this->editabled ? '' : 'disabled' }}>
+                                wire:change="scoreUpdate" {{ $this->editabled ? null : 'disabled' }}>
 
                             @error('visitor_set_{{ $i }}')
                                 <span class="invalid-feedback" role="alert">

@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Creo un stagione
-        $season = \App\Models\Season::create(['name' => 'Anno 2022/23']);
+        $season = \App\Models\Season::create(['name' => '2022/23']);
 
         \App\Models\Team::factory()->count(14)
             ->has(\App\Models\Player::factory()->count(10))

@@ -54,7 +54,8 @@ class TournamentController extends Controller
         // $tournamens = Tournament::all();
         // return redirect('tournament.index', compact('tournaments'));
 
-        return back()->withInput();
+        // return back()->withInput();
+        return redirect()->back()->withInput();
     }
 
     /**
@@ -111,9 +112,11 @@ class TournamentController extends Controller
      * @param  \App\Models\Tournament  $tournament
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tournament $tournament)
+    public function destroy(Season $season, Tournament $tournament)
     {
-        //
+        Tournament::destroy($tournament->id);
+
+        return redirect(route('season.show', $season->id));
     }
 
     /*

@@ -19,7 +19,7 @@
                             <div class="col-md-6">
                                 <input id="name" type="text"
                                     class="form-control @error('name') is-invalid @enderror" name="name"
-                                    placeholder="es: Stagione 2022/23" value="{{ old('name') }}" required
+                                    placeholder="es: 2022/23" value="{{ old('name') }}" required
                                     autocomplete="name" autofocus>
 
                                 @error('name')

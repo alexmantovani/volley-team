@@ -21,9 +21,10 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
+// Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
 
 Route::prefix('admin')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
 
     // Route::get('/season/{season}/tournament/create', [App\Http\Controllers\TournamentController::class, 'create'])->name('tournament.create');
     Route::resource('/season/{season}/tournament', App\Http\Controllers\TournamentController::class);

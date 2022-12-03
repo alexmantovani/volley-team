@@ -86,7 +86,7 @@
                     </a>
                 </div>
                 <div class="card-body">
-                    Aggiorna automaticamente i dati dal sito
+                    Aggiorna i dati dal sito (autosync)
                     <span class="custom-switch custom-switch-label" style="float: right">
                         <input class="custom-switch-input" id="sync_tournament" name="sync_tournament" type="checkbox"
                         wire:click="updateAutosync"
