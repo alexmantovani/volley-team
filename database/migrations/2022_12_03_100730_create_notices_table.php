@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tournaments', function (Blueprint $table) {
+        Schema::create('notices', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('season_id');
-
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->string('query')->nullable();
-            $table->boolean('autosync')->default(true);
-            $table->boolean('hidden')->default(false);
+            $table->string('title')->default('');
+            $table->string('subtitle')->nullable();
+            $table->string('icon')->default('fa-bell');
+            $table->string('background_color')->default('red');
+            $table->string('color')->default('white');
+            $table->timestamp('expire_at')->nullable();
 
             $table->timestamps();
         });
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tournaments');
+        Schema::dropIfExists('notices');
     }
 };

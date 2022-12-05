@@ -101,6 +101,7 @@ class TournamentController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'query' => $request->address,
+            'hidden' => $request->hidden,
         ]);
 
         return back()->withInput();

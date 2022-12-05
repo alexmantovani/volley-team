@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('name');
+            $table->boolean('my_team')->default(false);
 
             $table->timestamps();
         });

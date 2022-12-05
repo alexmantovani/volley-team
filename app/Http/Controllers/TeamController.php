@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Team;
+use App\Models\Season;
 
 class TeamController extends Controller
 {
@@ -47,6 +48,7 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
+        return view('team.show', compact('team'));
 
     }
 
@@ -83,4 +85,23 @@ class TeamController extends Controller
     {
         //
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myTeams()
+    {
+        // Stagione attiva
+        $season = Season::active();
+
+        // Le mie squadre di questa stagione
+        $teams = $season->myTeams();
+
+        // $results = $teams->first()->results->sortBy('round');
+
+        return view('team.teams', compact('season', 'teams'));
+    }
+
 }

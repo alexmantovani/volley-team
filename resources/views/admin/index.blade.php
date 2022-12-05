@@ -32,7 +32,7 @@
                         <div class="h4">
                             Impostazioni
                         </div>
-                        <a href="">
+                        <a href="{{ route('homepagesetup.index') }}">
                             <i class="fa-sharp fa-solid fa-house"></i>Homepage
                         </a>
                     </div>

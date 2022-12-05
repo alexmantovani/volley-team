@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Mockery\Matcher\Not;
+use App\Models\Notice;
 
 class HomeController extends Controller
 {
@@ -30,6 +32,8 @@ class HomeController extends Controller
             // 'https://www.centrosportivosantamaria.it/wordpress/wp-content/uploads/2020/04/slide-hp-00-1536x716.jpg',
         ];
 
-        return view('home', compact('sliders'));
+        $notice = Notice::find(1);
+
+        return view('home', compact('sliders', 'notice'));
     }
 }

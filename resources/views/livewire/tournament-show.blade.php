@@ -50,13 +50,26 @@
                                 <div class="col-md-9">
                                     <input id="address" type="text"
                                         class="form-control @error('address') is-invalid @enderror" name="address"
-                                        value="{{ $tournament->query }}" required autocomplete="address">
+                                        value="{{ $tournament->query }}" autocomplete="address">
 
                                     @error('address')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="offset-md-3 col-md-9">
+                                    <label for="hidden"
+                                    class="col-form-label mt-0 pt-0 text-md-end">{{ __('Nascondi questo turneo') }}</label>
+
+                                    <span class="custom-switch custom-switch-label" style="float: right">
+                                        <input class="custom-switch-input" id="hidden" name="hidden"
+                                            type="checkbox" {{ $tournament->hidden ? 'checked' : null }} />
+                                        <label class="custom-switch-btn" for="hidden"></label>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -67,92 +80,42 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4 mt-3">
-            <div class="card ">
-                <div class="card-header h4">
-                    CP Volley
-                </div>
-                <div class="card-body">
 
-                    <a href="{{ route('tournament.download_calendar', [$season, $tournament]) }}"
-                        class="btn btn-warning col-md-8 mt-3 offset-md-2
-                        {{ $autosync ? '' : 'disabled' }}">
-                        Scarica incontri
-                    </a>
-                    <a href="{{ route('tournament.download_results', [$season, $tournament]) }}"
-                        class="btn btn-warning col-md-8 mt-3 offset-md-2 {{ $autosync ? '' : 'disabled' }} ">
-                        Scarica risultati
-                    </a>
-                </div>
-                <div class="card-body">
-                    Aggiorna i dati dal sito (autosync)
-                    <span class="custom-switch custom-switch-label" style="float: right">
-                        <input class="custom-switch-input" id="sync_tournament" name="sync_tournament" type="checkbox"
-                        wire:click="updateAutosync"
-                            wire:model="autosync" />
-                        <label class="custom-switch-btn" for="sync_tournament"></label>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-8">
-            @foreach ($tournament->rounds() as $round)
-                <div class="card mt-3">
+
+            <div class="col-lg-12 mt-3">
+                <div class="card ">
                     <div class="card-header h4">
-                        Giornata {{ $round[0]->round }}
+                        Sincronizzazione risultati con CP Volley
                     </div>
                     <div class="card-body">
-                        <table class="table  align-middle">
 
-                            @foreach ($round as $result)
-                                <tr>
-                                    @if (!$this->autosync)
-                                        <td class=" col-md-1">
-                                            <a href="{{ route('result.show', $result) }}"
-                                                class="btn btn-xs">
-                                                <i class="fa fa-edit fa-fw"></i>
-                                            </a>
-                                        </td>
-                                    @endif
-                                    <td class="text-black-50 small  col-md-2"
-                                        title=" {{ $result->gym }} &middot; {{ $result->location }}">
-                                        {{ $result->date }}
-                                        <br>
-                                        {{ $result->time }}
-                                    </td>
-                                    <td class=" col-md-4">
-                                        <div class="h6 text-end pt-1">
-                                            @if ($result->home_wins)
-                                                <i class="fa-solid fa-trophy" style="color: gold"></i> &nbsp;
-                                            @endif
-                                            {{ $result->home_team->name }}
-                                        </div>
-                                    </td>
-                                    <td class=" col-md-4">
-                                        <div class="h6 pt-1">
-                                            {{ $result->visitor_team->name }}
-                                            @if ($result->visitor_wins)
-                                            &nbsp; <i class="fa-solid fa-trophy" style="color: gold"></i>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td class=" col-md-1">
-                                        <div class="h6 pt-1">
-                                            {{ $result->home_set_won }} &middot;
-                                            {{ $result->visitor_set_won }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
+                        <a href="{{ route('tournament.download_calendar', [$season, $tournament]) }}"
+                            class="btn btn-warning col-md-8 mt-3 offset-md-2
+                                {{ $autosync ? '' : 'disabled' }}">
+                            Scarica incontri
+                        </a>
+                        <a href="{{ route('tournament.download_results', [$season, $tournament]) }}"
+                            class="btn btn-warning col-md-8 mt-3 offset-md-2 {{ $autosync ? '' : 'disabled' }} ">
+                            Scarica risultati
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        Aggiorna i risultati automaticamente coi dati di CPVolley (autosync)
+                        <span class="custom-switch custom-switch-label" style="float: right">
+                            <input class="custom-switch-input" id="sync_tournament" name="sync_tournament"
+                                type="checkbox" wire:click="updateAutosync" wire:model="autosync" />
+                            <label class="custom-switch-btn" for="sync_tournament"></label>
+                        </span>
                     </div>
                 </div>
-            @endforeach
+            </div>
+
         </div>
+
+
+
+
         <div class="col-lg-4">
 
 
@@ -185,6 +148,69 @@
                     @endforeach
                 </div>
             </div>
+        </div>
+
+
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            @foreach ($tournament->rounds() as $round)
+                <div class="card mt-3">
+                    <div class="card-header h4">
+                        Giornata {{ $round[0]->round }}
+                    </div>
+                    <div class="card-body">
+                        <table class="table  align-middle">
+
+                            @foreach ($round as $result)
+                                <tr>
+                                    {{-- @if (!$this->autosync) --}}
+                                    <td class=" col-md-1">
+                                        <a href="{{ route('result.show', $result) }}" class="btn btn-xs">
+                                            <i class="fa fa-edit fa-fw"></i>
+                                        </a>
+                                    </td>
+                                    {{-- @endif --}}
+                                    <td class="text-black-50 small  col-md-2"
+                                        title=" {{ $result->gym }} &middot; {{ $result->location }}">
+                                        {{ $result->date }}
+                                        <br>
+                                        {{ $result->time }}
+                                    </td>
+                                    <td class=" col-md-4">
+                                        <div class="h6 text-end pt-1">
+                                            @if ($result->home_wins)
+                                                <i class="fas fa-volleyball-ball"
+                                                    style="color: rgb(244, 198, 45)"></i>
+                                                &nbsp;
+                                            @endif
+                                            {{ $result->home_team->name }}
+                                        </div>
+                                    </td>
+                                    <td class=" col-md-4">
+                                        <div class="h6 pt-1">
+                                            {{ $result->visitor_team->name }}
+                                            @if ($result->visitor_wins)
+                                                &nbsp; <i class="fas fa-volleyball-ball"
+                                                    style="color: rgb(244, 198, 45)"></i>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td class=" col-md-1">
+                                        <div class="h6 pt-1">
+                                            {{ $result->home_set_won }} &middot;
+                                            {{ $result->visitor_set_won }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 

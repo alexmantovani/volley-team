@@ -49,12 +49,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#chisiamo">{{ __('Chi siamo') }}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Squadre') }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Gare') }}</a>
-                        </li>
+                        @if (\App\Models\Season::active() && (\App\Models\Season::active()->myTeams()->count()>0))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('team.teams') }}">{{ __('Squadre') }}</a>
+                            </li>
+                        @endif
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Sponsor') }}</a>
                         </li> --}}
@@ -67,23 +66,23 @@
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Fotogallery
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('register') }}">
-                                {{ __('Impostazioni personali') }}
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Fotogallery
                             </a>
-                            <a class="dropdown-item" href="{{ route('register') }}">
-                                {{ __('Impostazioni personali') }}
-                            </a>
-                        </div>
-                    </li>
 
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Admin') }}</a>
-                                            </li>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('register') }}">
+                                    {{ __('Impostazioni personali') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('register') }}">
+                                    {{ __('Impostazioni personali') }}
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.home') }}">{{ __('Admin') }}</a>
+                        </li>
 
                         <!-- Authentication Links -->
                         @guest

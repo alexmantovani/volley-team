@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ]);
 
+        // Creo un avviso vuoto
+        \App\Models\Notice::create(['title' => 'Primo avviso']);
+
+
         // Creo un stagione
         $season = \App\Models\Season::create(['name' => '2022/23']);
 

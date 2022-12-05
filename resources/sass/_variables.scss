@@ -11,6 +11,57 @@ $line-height-base: 1.6;
 //     text-decoration: none !important;
 // }
 
+.fs-1 {
+    font-size: calc(1.35rem + 1.2vw) !important;
+}
+
+.fs-2 {
+    font-size: calc(1.305rem + 0.66vw) !important;
+}
+
+.fs-3 {
+    font-size: calc(1.2825rem + 0.39vw) !important;
+}
+
+.fs-4 {
+    font-size: calc(1.26rem + 0.12vw) !important;
+}
+
+.fs-5 {
+    font-size: 1.125rem !important;
+}
+
+.fs-6 {
+    font-size: 0.9rem !important;
+}
+
+.fw-light {
+    font-weight: 300 !important;
+}
+
+.fw-lighter {
+    font-weight: lighter !important;
+}
+
+.fw-normal {
+    font-weight: 400 !important;
+}
+
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+.fw-bolder {
+    font-weight: bolder !important;
+}
+
+.text-black-50 {
+    --bs-text-opacity: 1;
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+
+
 .text-lowercase {
     text-transform: lowercase !important;
 }
@@ -740,11 +791,15 @@ section.spacer {
 
 /* Cards titles styling
 ------------------------------------------ */
-.card__title{ /* Just for styling */
-    align-self: flex-left; padding-top: 85%; padding-bottom: 0%;
-    color: rgba(255,255,255,.90);
+.card__title {
+    /* Just for styling */
+    align-self: flex-left;
+    padding-top: 85%;
+    padding-bottom: 0%;
+    color: rgba(255, 255, 255, .90);
     font-size: 1.2rem;
-    line-height: 1;font-weight: 600;
+    line-height: 1;
+    font-weight: 600;
 }
 
 // /* Styles for:
@@ -769,10 +824,11 @@ section.spacer {
 // }
 
 /* Styles the title inside the img container */
-.card__thumbnail > .card__title{ /* Just for styling */
-  position: absolute;
-  left: 0;
-  bottom: 0;
+.card__thumbnail>.card__title {
+    /* Just for styling */
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
 
 
@@ -782,14 +838,15 @@ section.spacer {
 ** - Using background-size on JS
 ------------------------------------------ */
 /* Prepares a container to have cover background */
-.has-bg-img{
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+.has-bg-img {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
+
 /* Loads a specific image to a container */
-.bg-img-nature{
-  background-image: url(https://c1.wallpaperflare.com/preview/1000/679/828/volleyball-sport-ball-volley.jpg);
+.bg-img-nature {
+    background-image: url(https://c1.wallpaperflare.com/preview/1000/679/828/volleyball-sport-ball-volley.jpg);
 }
 
 .bg-red {
@@ -800,7 +857,6 @@ section.spacer {
     min-height: 220px;
 }
 
-.card-clickable:hover{
+.card-clickable:hover {
     cursor: pointer;
 }
-

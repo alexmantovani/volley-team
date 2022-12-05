@@ -11,16 +11,29 @@ class Season extends Model
 
     protected $guarded = [];
 
+    /**
+     * Riporta l'elenco di squadre che partecipano ai vari tornei che sono presenti
+     * in una stagione.
+     */
     public function teams()
     {
-        return $this->hasMany(Team::class);
+        $teamIds = $this->hasManyThrough(Ranking::class, Tournament::class)->pluck('team_id');
+        return Team::whereIn('id', $teamIds)->get();
+    }
+
+    /**
+     * Riporta l'elenco di squadre APPARTENENTI AL SITO che partecipano ai vari tornei
+     * che sono presenti in una stagione.
+     */
+    public function myTeams()
+    {
+        return $this->teams()->where('my_team', true);
     }
 
     public function tournaments()
     {
         return $this->hasMany(Tournament::class);
     }
-
 
     /**
      * Indica se il tornato è attivo o meno
