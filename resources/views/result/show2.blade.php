@@ -17,7 +17,7 @@
 
 
                             <!--<br><a class="set-players-btn" href="https://aggiornamenti.csi.milano.it/profilo.html?step=carica_referto&incontro=2022314BA0103&girone=B&codgruppo=PVM&login=true">Carica referti</a>
-        <br><a class="set-players-btn" href="#">Spostamento partita</a>-->
+            <br><a class="set-players-btn" href="#">Spostamento partita</a>-->
                         </h2>
                     </div>
                     <div class="addthis-wrp">

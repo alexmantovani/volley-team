@@ -13,10 +13,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the application dashboard.
@@ -25,7 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $sliders = [
             'https://www.centrosportivosantamaria.it/wordpress/wp-content/uploads/2020/04/slide-sm-04-1024x478.jpg',
             'https://www.centrosportivosantamaria.it/wordpress/wp-content/uploads/2020/04/slide-sm-03-1024x478.jpg',

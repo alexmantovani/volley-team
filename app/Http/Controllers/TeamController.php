@@ -99,8 +99,6 @@ class TeamController extends Controller
         // Le mie squadre di questa stagione
         $teams = $season->myTeams();
 
-        // $results = $teams->first()->results->sortBy('round');
-
         return view('team.teams', compact('season', 'teams'));
     }
 

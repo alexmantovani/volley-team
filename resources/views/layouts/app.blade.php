@@ -18,10 +18,15 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+    {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     @livewireStyles
 </head>
@@ -47,21 +52,22 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#chisiamo">{{ __('Chi siamo') }}</a>
+                            <a class="nav-link" href="{{ route('whoweare') }}">{{ __('Chi siamo') }}</a>
                         </li>
-                        @if (\App\Models\Season::active() && (\App\Models\Season::active()->myTeams()->count()>0))
+                        @if (\App\Models\Season::active() &&
+                            \App\Models\Season::active()->myTeams()->count() > 0)
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('team.teams') }}">{{ __('Squadre') }}</a>
                             </li>
                         @endif
                         {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Sponsor') }}</a>
+                            <a class="nav-link" href="">{{ __('Sponsor') }}</a>
                         </li> --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Tariffe') }}</a>
+                            <a class="nav-link" href="">{{ __('Tariffe') }}</a>
                         </li>
                         {{-- <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Contatti') }}</a>
+                            <a class="nav-link" href="">{{ __('Contatti') }}</a>
                         </li> --}}
 
                         <li class="nav-item dropdown">
@@ -71,10 +77,10 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('register') }}">
+                                <a class="dropdown-item" href="">
                                     {{ __('Impostazioni personali') }}
                                 </a>
-                                <a class="dropdown-item" href="{{ route('register') }}">
+                                <a class="dropdown-item" href="">
                                     {{ __('Impostazioni personali') }}
                                 </a>
                             </div>
