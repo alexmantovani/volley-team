@@ -1,5 +1,5 @@
 <div>
-    <div class="col-md-6">
+    <div class="">
 
         <form method="POST" action="{{ route('result.update', $result) }}">
             @csrf

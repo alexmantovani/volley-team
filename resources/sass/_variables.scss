@@ -11,6 +11,10 @@ $line-height-base: 1.6;
 //     text-decoration: none !important;
 // }
 
+.fs-small {
+    font-size: 0.7rem !important;
+}
+
 .fs-1 {
     font-size: calc(1.35rem + 1.2vw) !important;
 }
@@ -883,4 +887,17 @@ section.spacer {
 
 .card-clickable:hover {
     cursor: pointer;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    // grid-template-rows: repeat(3, 5vw);
+    grid-gap: 15px;
+}
+
+.gallery__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

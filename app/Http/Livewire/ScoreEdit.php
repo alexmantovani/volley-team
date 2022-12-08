@@ -17,8 +17,8 @@ class ScoreEdit extends Component
 
     public function mount()
     {
-        $this->homeScore = $this->result->home_score;
-        $this->visitorScore = $this->result->visitor_score;
+        $this->homeScore = $this->result->home_set_won;
+        $this->visitorScore = $this->result->visitor_set_won;
 
         for ($i = 0; $i < 5; $i++) {
             $this->homeSet[$i] = $this->result->teams[0]->pivot['set_' . $i + 1];

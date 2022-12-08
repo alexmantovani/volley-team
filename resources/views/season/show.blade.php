@@ -121,6 +121,12 @@
                             <td>
                                 <div class="h5 mb-0">
                                     {{ $tournament->name }}
+                                    @if ($tournament->hidden)
+                                        <span class="badge p-1 fs-small"
+                                            style="background-color: rgb(197, 197, 197); color: rgb(255, 255, 255);">
+                                            NASCOSTO
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="small m-0 text-black-50">
                                     {{ $tournament->description }}

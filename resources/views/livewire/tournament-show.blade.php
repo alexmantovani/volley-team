@@ -63,11 +63,11 @@
                             <div class="row mb-3">
                                 <div class="offset-md-3 col-md-9">
                                     <label for="hidden"
-                                    class="col-form-label mt-0 pt-0 text-md-end">{{ __('Nascondi questo turneo') }}</label>
+                                        class="col-form-label mt-0 pt-0 text-md-end">{{ __('Nascondi questo turneo') }}</label>
 
                                     <span class="custom-switch custom-switch-label" style="float: right">
-                                        <input class="custom-switch-input" id="hidden" name="hidden"
-                                            type="checkbox" {{ $tournament->hidden ? 'checked' : null }} />
+                                        <input class="custom-switch-input" id="hidden" name="hidden" type="checkbox"
+                                            {{ $tournament->hidden ? 'checked' : null }} />
                                         <label class="custom-switch-btn" for="hidden"></label>
                                     </span>
                                 </div>
@@ -168,13 +168,18 @@
                             @foreach ($round as $result)
                                 <tr>
                                     {{-- @if (!$this->autosync) --}}
-                                    <td class=" col-md-1">
+                                    <td style="width: 20px">
                                         <a href="{{ route('result.show', $result) }}" class="btn btn-xs">
                                             <i class="fa fa-edit fa-fw"></i>
                                         </a>
                                     </td>
+                                    <td>
+                                        @if ($result->images->count() > 0)
+                                            <i class="fas fa-images"></i>
+                                        @endif
+                                    </td>
                                     {{-- @endif --}}
-                                    <td class="text-black-50 small  col-md-2"
+                                    <td class="text-black-50 small" style="width: 40px"
                                         title=" {{ $result->gym }} &middot; {{ $result->location }}">
                                         {{ $result->date }}
                                         <br>

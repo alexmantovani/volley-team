@@ -24,6 +24,7 @@
                                             <td>Data</td>
                                             <td>Partita</td>
                                             <td>Risultati</td>
+                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -46,8 +47,11 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    {{ $result->home_score }} -
-                                                    {{ $result->visitor_score }}
+                                                    {{ $result->home_set_won }} -
+                                                    {{ $result->visitor_set_won }}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('result.show', $result) }}"><i class="fas fa-edit"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

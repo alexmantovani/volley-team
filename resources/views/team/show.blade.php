@@ -26,21 +26,27 @@
                     </div>
                 </div>
 
-
-                <div class="d-flex">
-                    <div class="pt-2">
-                        E' una squadra di questa società &nbsp;
-                    </div>
-                    <div class="custom-switch custom-switch-label pt-2">
-                        <input class="custom-switch-input" id="my_team" type="checkbox"
-                         {{-- wire:click="updateAlert"
+                <form method="POST" action="{{ route('team.update', $team) }}">
+                    @csrf
+                    @method('put')
+                    <div class="d-flex">
+                        <div class="pt-2">
+                            E' una squadra di questa società &nbsp;
+                        </div>
+                        <div class="custom-switch custom-switch-label pt-2">
+                            <input class="custom-switch-input" id="my_team" name="my_team" type="checkbox"
+                            {{ $team->my_team ? 'checked' : null }}
+                            {{-- wire:click="updateAlert"
                             wire:model="showNotice"  --}}
                             />
-                        <label class="custom-switch-btn" for="my_team"> </label>
+                            <label class="custom-switch-btn" for="my_team"> </label>
+                        </div>
                     </div>
-                </div>
 
-
+                    <div class="col-md-12 pt-1" style="text-align: right">
+                        <button type="submit" class="btn btn-primary">Salva modifiche</button>
+                    </div>
+                </form>
 
 
                 {{-- @livewire('tournament-show', [

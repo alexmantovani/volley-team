@@ -63,9 +63,9 @@
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="">{{ __('Sponsor') }}</a>
                         </li> --}}
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="">{{ __('Tariffe') }}</a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="">{{ __('Contatti') }}</a>
                         </li> --}}

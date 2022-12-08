@@ -72,7 +72,9 @@ class TeamController extends Controller
      */
     public function update(UpdateTeamRequest $request, Team $team)
     {
-        //
+        $team->update(['my_team'=>$request->my_team]);
+
+        return redirect('team')->with('success', 'Team updated successfully.');
     }
 
     /**

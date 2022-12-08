@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
 use App\Models\Image;
+use App\Models\Result;
+use Log;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Request;
 
 class ImageController extends Controller
 {
@@ -82,5 +87,42 @@ class ImageController extends Controller
     public function destroy(Image $image)
     {
         //
+    }
+
+    public function rejectImage(Image $image)
+    {
+        $image->update(['status' => 'unauthorized']);
+        return back();
+    }
+
+    public function acceptImage(Image $image)
+    {
+        $image->update(['status' => 'authorized']);
+        return back();
+    }
+
+
+    /**
+     * Chiamata quando faccio l'upload dell'immagine
+     */
+    public function resultImageUpload(UpdateImageRequest $request, Result $result)
+    {
+        // $request = Request();
+        if ($request->file('file')) {
+            Log::debug('result id:' . $result->id . ' image:' . $request->file('file')->getPathname());
+
+            $uuid = Str::uuid();
+            $extension = $request->file->getClientOriginalExtension();
+            $imageName = $uuid . '.' . $extension;
+
+            $image = $request->file('file');
+            $image->move(public_path('images'), $imageName);
+
+            $result->images()->create(['filename' => $imageName]);
+
+            return response()->json(['success' => $imageName]);
+        }
+
+        return response()->json(['error' => 'No file uploaded']);
     }
 }

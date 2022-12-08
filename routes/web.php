@@ -31,6 +31,10 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/homepagesetup', [App\Http\Controllers\HomePageSetupController::class, 'index'])->name('homepagesetup.index');
 
+    Route::post('/result/{result}/image/upload', [App\Http\Controllers\ImageController::class, 'resultImageUpload'])->name('result.image.upload');
+    Route::get('/image/{image}/reject', [App\Http\Controllers\ImageController::class, 'rejectImage'])->name('image.reject');
+    Route::get('/image/{image}/accept', [App\Http\Controllers\ImageController::class, 'acceptImage'])->name('image.accept');
+
     Route::resource('/season/{season}/tournament', App\Http\Controllers\TournamentController::class);
     Route::get('/season/{season}/tournament/{tournament}/download_calendar', [App\Http\Controllers\TournamentController::class, 'downloadRoundsAndTeams'])->name('tournament.download_calendar');
     Route::get('/season/{season}/tournament/{tournament}/download_results', [App\Http\Controllers\TournamentController::class, 'downloadResults'])->name('tournament.download_results');
