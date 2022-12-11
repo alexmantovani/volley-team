@@ -57,11 +57,11 @@
                                 @if ($image->status == 'unknown')
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <a href="{{ route('image.reject', $image->id) }}"
+                                            <a href="{{ route('admin.image.reject', $image->id) }}"
                                                 class="btn btn-danger">Elimina</a>
                                         </div>
                                         <div>
-                                            <a href="{{ route('image.accept', $image->id) }}"
+                                            <a href="{{ route('admin.image.accept', $image->id) }}"
                                                 class="btn btn-success">Autorizza</a>
                                         </div>
                                     </div>
