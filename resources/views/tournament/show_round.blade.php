@@ -28,9 +28,11 @@
                             </a>
                         </td>
                     @endif
-                    <td>
+                    <td class="text-center fs-small">
                         @if ($result->images->count() > 0)
                             <i class="fas fa-images"></i>
+                            <br>
+                            {{ $result->images->count() }} foto
                         @endif
                     </td>
                     <td class="text-black-50 small">
