@@ -51,7 +51,7 @@
                         @foreach ($result->images as $image)
                             <div class="card">
                                 <figure class=”gallery__item">
-                                    <img src="/images/{{ $image->filename }}" alt="{{ $image->filename }}"
+                                    <img src="{{ asset('/images/') . '/' . $image->filename }}" alt="{{ $image->filename }}"
                                         class="gallery__img" />
                                 </figure>
                                 @if ($image->status == 'unknown')
