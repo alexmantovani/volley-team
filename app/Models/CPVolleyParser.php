@@ -116,6 +116,8 @@ class CPVolleyParser extends Model
      */
     public function parseRoundMatches($htmlText)
     {
+        Log::error('parseRoundMatches()');
+
         $dom = new \DomDocument();
         @$dom->loadHTML($htmlText);
         $trs = $dom->getElementsByTagName('table')[1]
@@ -129,7 +131,9 @@ class CPVolleyParser extends Model
             $tds = $tr->getElementsByTagName('td');
 
             // Deve contenere precisamente le colonne che voglio io
-            if ($tds->length != 9) {
+            if (($tds->length != 9) &&
+                ($tds->length != 7)
+            ) {
                 // Log::error($url);
                 Log::error('Parser: Error (length ' . $tds->length . ')');
 
@@ -158,6 +162,8 @@ class CPVolleyParser extends Model
      */
     public function parseLocationMatches($htmlText)
     {
+        Log::error('parseLocationMatches()');
+
         $dom = new \DomDocument();
         @$dom->loadHTML($htmlText);
         $trs = $dom->getElementsByTagName('table')[3]
@@ -205,6 +211,8 @@ class CPVolleyParser extends Model
      */
     public function parseResultMatches($htmlText)
     {
+        Log::error('parseResultMatches()');
+
         $dom = new \DomDocument();
         @$dom->loadHTML($htmlText);
         $trs = $dom->getElementsByTagName('table')[1]
@@ -218,7 +226,9 @@ class CPVolleyParser extends Model
             $tds = $tr->getElementsByTagName('td');
 
             // Deve contenere precisamente le colonne che voglio io
-            if ($tds->length != 9) {
+            if (($tds->length != 9) &&
+                ($tds->length != 7)
+            ) {
                 // Log::error($url);
                 Log::error('Parser: Error (length ' . $tds->length . ')');
 
@@ -243,11 +253,20 @@ class CPVolleyParser extends Model
                 "set_1" => $this->getPointsForSet($tds[4]->textContent),
                 "set_2" => $this->getPointsForSet($tds[5]->textContent),
                 "set_3" => $this->getPointsForSet($tds[6]->textContent),
-                "set_4" => $this->getPointsForSet($tds[7]->textContent),
-                "set_5" => $this->getPointsForSet($tds[8]->textContent),
                 "score" => $this->getScore($setWon),
                 "winner" => $this->getWinner($setWon),
             ];
+            if ($tds->length == 9) {
+                $result += [
+                    "set_4" => $this->getPointsForSet($tds[7]->textContent),
+                    "set_5" => $this->getPointsForSet($tds[8]->textContent),
+                ];
+            } else {
+                $result += [
+                    "set_4" => [null, null],
+                    "set_5" => [null, null],
+                ];
+            }
 
             array_push($array, $result);
 

@@ -55,10 +55,24 @@
                             <a class="nav-link" href="{{ route('whoweare') }}">{{ __('Chi siamo') }}</a>
                         </li>
                         @if (\App\Models\Season::active() &&
-                            \App\Models\Season::active()->myTeams()->count() > 0)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('team.teams') }}">{{ __('Squadre') }}</a>
+                            \App\Models\Season::active()->myTournaments()->count() > 0)
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Campionato') }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    @foreach (\App\Models\Season::active()->myTournaments as $tournament)
+                                        <a class="dropdown-item" href="{{ route('tournament.show', $tournament) }}">
+                                            {{ $tournament->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
                             </li>
+                            {{-- <li class="nav-item">
+                                <a class="nav-link" href="{{ route('team.teams') }}">{{ __('Squadre') }}</a>
+                            </li> --}}
                         @endif
                         {{-- <li class="nav-item">
                             <a class="nav-link" href="">{{ __('Sponsor') }}</a>

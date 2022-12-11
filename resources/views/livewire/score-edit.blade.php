@@ -1,7 +1,7 @@
 <div>
     <div class="">
 
-        <form method="POST" action="{{ route('result.update', $result) }}">
+        <form method="POST" action="{{ route('admin.result.update', $result) }}">
             @csrf
             @method('put')
             <input type="hidden" id="home_score" name="home_score" value="{{ $this->homeScore }}">

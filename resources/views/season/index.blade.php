@@ -14,7 +14,7 @@
                 </div>
                 <br>
                 <div>
-                    <form method="POST" action="{{ route('season.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.season.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="d-flex">
                             <label for="name" class="col-form-label">{{ __('Nome della nuova stagione') }}</label>
@@ -53,7 +53,7 @@
                         <table class="table table-borderless align-middle">
                             <tr>
                                 <td>
-                                    <a href="{{ route('season.show', $activeSeason) }}" class="h5">
+                                    <a href="{{ route('admin.season.show', $activeSeason) }}" class="h5">
                                         {{ $activeSeason->name }}
                                     </a>
                                 </td>
@@ -69,7 +69,7 @@
                                 <tr>
                                     <td>
                                         <div class="pl-5" style="padding-left: 40px">
-                                            <a href="{{ route('tournament.show', [$activeSeason, $tournament]) }}">
+                                            <a href="{{ route('admin.tournament.show', [$activeSeason, $tournament]) }}">
                                                 {{ $tournament->name }}
                                             </a>
                                         </div>
@@ -100,7 +100,7 @@
                         @endif
                         <tr>
                             <td class="h5">
-                                <a href="{{ route('season.show', $season) }}" class="h5">
+                                <a href="{{ route('admin.season.show', $season) }}" class="h5">
                                     {{ $season->name }}
                                 </a>
                             </td>
@@ -110,7 +110,7 @@
                             <tr>
                                 <td>
                                     <div class="pl-5" style="padding-left: 40px">
-                                        <a href="{{ route('tournament.show', [$season, $tournament]) }}">
+                                        <a href="{{ route('admin.tournament.show', [$season, $tournament]) }}">
                                             {{ $tournament->name }}
                                         </a>
                                     </div>

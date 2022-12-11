@@ -51,7 +51,10 @@
                                                     {{ $result->visitor_set_won }}
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('result.show', $result) }}"><i class="fas fa-edit"></i></a>
+                                                    @if ($result->matchPlayed())
+                                                        <a href="{{ route('admin.result.show', $result) }}"><i
+                                                                class="fas fa-edit"></i></a>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

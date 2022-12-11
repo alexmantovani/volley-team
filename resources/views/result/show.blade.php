@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    <form method="post" action="{{ route('result.image.upload', $result) }}" enctype="multipart/form-data"
+                    <form method="post" action="{{ route('admin.result.image.upload', $result) }}" enctype="multipart/form-data"
                         class="dropzone" id="dropzone">
                         @csrf
                     </form>

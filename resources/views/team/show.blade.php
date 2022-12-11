@@ -15,7 +15,7 @@
                             </small>
                         </div>
 
-                        {{-- <form method="POST" action="{{ route('tournament.destroy', [$season->id, $tournament->id]) }}"
+                        {{-- <form method="POST" action="{{ route('admin.tournament.destroy', [$season->id, $tournament->id]) }}"
                             onclick="return confirm('Vuoi davvero eliminare questo torneo?');">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('team.update', $team) }}">
+                <form method="POST" action="{{ route('admin.team.update', $team) }}">
                     @csrf
                     @method('put')
                     <div class="d-flex">

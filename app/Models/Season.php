@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Season extends Model
 {
@@ -28,6 +29,19 @@ class Season extends Model
     public function myTeams()
     {
         return $this->teams()->where('my_team', true);
+    }
+
+    /**
+     * Riporta l'elenco dei tornei VISIBILI a cui le squadre APPARTENENTI AL SITO partecipano (relative a questa stagione)
+     */
+    public function myTournaments()
+    {
+        $tournamentIds = Ranking::join('teams', 'teams.id', 'team_tournament.team_id')
+            ->where('my_team', 'on')
+            ->pluck('tournament_id');
+        return $this->tournaments()
+            ->whereIn('id', $tournamentIds)
+            ->where('hidden', 0);
     }
 
     public function tournaments()

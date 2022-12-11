@@ -103,4 +103,9 @@ class Result extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    public function matchPlayed()
+    {
+        return (bool)($this->home_set_won + $this->visitor_set_won);
+    }
 }

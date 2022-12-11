@@ -15,7 +15,7 @@
                                 IN CORSO
                             </span>
                             <small>
-                                <a href="{{ route('season.index') }}"><i class="fa fa-angle-left"></i> indietro</a>
+                                <a href="{{ route('admin.season.index') }}"><i class="fa fa-angle-left"></i> indietro</a>
                             </small>
 
                         </div>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
 
-                        <form method="POST" action="{{ route('season.destroy', $season->id) }}"
+                        <form method="POST" action="{{ route('admin.season.destroy', $season->id) }}"
                             onclick="return confirm('Vuoi davvero eliminare questa stagione?');">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
@@ -48,7 +48,7 @@
                         <div class="card mt-3">
                             <div class="card-body">
 
-                                <form method="POST" action="{{ route('season.update', $season) }}">
+                                <form method="POST" action="{{ route('admin.season.update', $season) }}">
                                     @csrf
                                     @method('put')
                                     <div class="form-group col-md-12 pt-2">
@@ -114,7 +114,7 @@
                     @foreach ($season->tournaments as $tournament)
                         <tr>
                             <td style="width: 30px;">
-                                <a href="{{ route('tournament.show', [$season, $tournament]) }}" class="button">
+                                <a href="{{ route('admin.tournament.show', [$season, $tournament]) }}" class="button">
                                     <i class="fa fa-edit"></i>
                                 </a>
                             </td>
@@ -140,7 +140,7 @@
                     @endforeach
                 </table>
 
-                <a href="{{ route('tournament.create', $season) }}" class="btn btn-primary">
+                <a href="{{ route('admin.tournament.create', $season) }}" class="btn btn-primary">
                     <i class="fa fa-plus"></i> &nbsp;&nbsp;
                     {{ __('Aggiungi nuovo torneo') }}
                 </a>
@@ -153,7 +153,7 @@
     <script>
         function handleClick(element) {
             $.ajax({
-                url: "{{ route('season.activate', $season->id) }}"
+                url: "{{ route('admin.season.activate', $season->id) }}"
             }).done(function(data) {
                 var item = document.getElementById('active_season');
                 // item.style.display = 'none'; // Hide

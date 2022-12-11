@@ -17,11 +17,11 @@
 
                 @php $activeSeason = App\Models\Season::active(); @endphp
                 @if ($activeSeason)
-                    <li class="menu"><a href="{{ route('season.show', $activeSeason) }}"><i
+                    <li class="menu"><a href="{{ route('admin.season.show', $activeSeason) }}"><i
                                 class="fas fa-calendar fa-fw"></i>
                             {{ $activeSeason->name }}</a></li>
                 @endif
-                <li class="menu"><a href="{{ route('season.create') }}"><i class="fas fa-plus fa-fw"></i>
+                <li class="menu"><a href="{{ route('admin.season.create') }}"><i class="fas fa-plus fa-fw"></i>
                         Aggiungi una stagione</a></li>
 
                 @foreach (App\Models\Season::where('favorite', true) as $season)
@@ -29,7 +29,7 @@
                     </li>
                 @endforeach
 
-                <li class="menu"><a href="{{ route('season.index') }}"><i class="fas fa-edit fa-fw"></i>
+                <li class="menu"><a href="{{ route('admin.season.index') }}"><i class="fas fa-edit fa-fw"></i>
                         Gestisci stagioni</a></li>
 
         </ul>

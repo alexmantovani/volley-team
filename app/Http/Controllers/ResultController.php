@@ -110,7 +110,7 @@ class ResultController extends Controller
             ]
         );
 
-        return redirect(route('result.show', compact('result')));
+        return redirect(route('admin.result.show', compact('result')));
     }
 
     /**

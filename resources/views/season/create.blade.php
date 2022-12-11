@@ -9,7 +9,7 @@
                 </div>
                 <br>
                 <div>
-                    <form method="POST" action="{{ route('season.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.season.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="d-flex">
                             <label for="name" class="col-form-label">{{ __('Nome della nuova stagione') }}</label>

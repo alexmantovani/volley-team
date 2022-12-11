@@ -45,7 +45,7 @@ class SeasonController extends Controller
         $season = Season::create($validatedData);
 
         $seasons = Season::all();
-        return redirect()->route('season.index', compact('seasons'));
+        return redirect()->route('admin.season.index', compact('seasons'));
     }
 
     /**
@@ -99,7 +99,7 @@ class SeasonController extends Controller
 
         // TODO: Cancellare anche tutti i tornei ad essa associati
 
-        return redirect(route('season.index'));
+        return redirect(route('admin.season.index'));
     }
 
     public function activate($seasonId)

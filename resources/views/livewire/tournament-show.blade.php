@@ -4,7 +4,7 @@
         <div class="col-lg-8">
             <div class="card mt-3">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('tournament.update', [$season, $tournament]) }}">
+                    <form method="POST" action="{{ route('admin.tournament.update', [$season, $tournament]) }}">
                         @csrf
                         @method('put')
                         <div class="form-group col-md-12 pt-2">
@@ -90,12 +90,12 @@
                     </div>
                     <div class="card-body">
 
-                        <a href="{{ route('tournament.download_calendar', [$season, $tournament]) }}"
+                        <a href="{{ route('admin.tournament.download_calendar', [$season, $tournament]) }}"
                             class="btn btn-warning col-md-8 mt-3 offset-md-2
                                 {{ $autosync ? '' : 'disabled' }}">
                             Scarica incontri
                         </a>
-                        <a href="{{ route('tournament.download_results', [$season, $tournament]) }}"
+                        <a href="{{ route('admin.tournament.download_results', [$season, $tournament]) }}"
                             class="btn btn-warning col-md-8 mt-3 offset-md-2 {{ $autosync ? '' : 'disabled' }} ">
                             Scarica risultati
                         </a>
@@ -137,7 +137,7 @@
                     @foreach ($tournament->ranking as $team)
                         <div>
                             <div class="pt-2 pb-1">
-                                <a href="{{ route('team.show', $team) }}">
+                                <a href="{{ route('admin.team.show', $team) }}">
                                     {{ $team->name }}
                                 </a>
                                 <span class="" style="float: right">
@@ -149,76 +149,14 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
-
 
     <div class="row">
         <div class="col-lg-12">
             @foreach ($tournament->rounds() as $round)
-                <div class="card mt-3">
-                    <div class="card-header h4">
-                        Giornata {{ $round[0]->round }}
-                    </div>
-                    <div class="card-body">
-                        <table class="table  align-middle">
-
-                            @foreach ($round as $result)
-                                <tr>
-                                    {{-- @if (!$this->autosync) --}}
-                                    <td style="width: 20px">
-                                        <a href="{{ route('result.show', $result) }}" class="btn btn-xs">
-                                            <i class="fa fa-edit fa-fw"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @if ($result->images->count() > 0)
-                                            <i class="fas fa-images"></i>
-                                        @endif
-                                    </td>
-                                    {{-- @endif --}}
-                                    <td class="text-black-50 small" style="width: 40px"
-                                        title=" {{ $result->gym }} &middot; {{ $result->location }}">
-                                        {{ $result->date }}
-                                        <br>
-                                        {{ $result->time }}
-                                    </td>
-                                    <td class=" col-md-4">
-                                        <div class="h6 text-end pt-1">
-                                            @if ($result->home_wins)
-                                                <i class="fas fa-volleyball-ball"
-                                                    style="color: rgb(244, 198, 45)"></i>
-                                                &nbsp;
-                                            @endif
-                                            {{ $result->home_team->name }}
-                                        </div>
-                                    </td>
-                                    <td class=" col-md-4">
-                                        <div class="h6 pt-1">
-                                            {{ $result->visitor_team->name }}
-                                            @if ($result->visitor_wins)
-                                                &nbsp; <i class="fas fa-volleyball-ball"
-                                                    style="color: rgb(244, 198, 45)"></i>
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td class=" col-md-1">
-                                        <div class="h6 pt-1">
-                                            {{ $result->home_set_won }} &middot;
-                                            {{ $result->visitor_set_won }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
-                    </div>
-                </div>
+            @include('tournament.show_round', ['hide' => ['']])
             @endforeach
         </div>
     </div>
-
-
 
 </div>

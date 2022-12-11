@@ -24,10 +24,12 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/team', [App\Http\Controllers\TeamController::class, 'myTeams'])->name('team.teams');
 Route::get('/whoweare', [App\Http\Controllers\WhoWeAreController::class, 'index'])->name('whoweare');
 
+Route::get('/tournament/{tournament}', [App\Http\Controllers\TournamentController::class, 'showGuests'])->name('tournament.show');
+
 // Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('home');
 
     Route::get('/homepagesetup', [App\Http\Controllers\HomePageSetupController::class, 'index'])->name('homepagesetup.index');
 

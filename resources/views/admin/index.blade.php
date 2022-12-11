@@ -32,14 +32,14 @@
                         <div class="h4">
                             Impostazioni
                         </div>
-                        <a href="{{ route('homepagesetup.index') }}">
+                        <a href="{{ route('admin.homepagesetup.index') }}">
                             <i class="fa-sharp fa-solid fa-house"></i>Homepage
                         </a>
                     </div>
                 </div>
 
                 <div class="card setting-card has-bg-img bg-img-nature card-clickable col-md-3 m-2"
-                    onclick="location.href = '{{ route('season.index') }}'"
+                    onclick="location.href = '{{ route('admin.season.index') }}'"
                     title="Clicca qui per gestire le stagioni">
                     <span class="card__title">Stagioni</span>
                     {{-- <div class="card-body">
@@ -53,7 +53,7 @@
                 @php $activeSeason = App\Models\Season::active(); @endphp
                 @if ($activeSeason)
                     <div class="card setting-card card-clickable col-md-3 m-2 bg-red"
-                        onclick="location.href = '{{ route('season.show', $activeSeason) }}'"
+                        onclick="location.href = '{{ route('admin.season.show', $activeSeason) }}'"
                         title="Clicca qui per accedere ai dettagli della stagione">
                         <div class="card-body">
                             <div class="h4">

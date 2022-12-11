@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
 
-                <form method="POST" action="{{ route('tournament.store', $season) }}" enctype="multipart/form-data" class="row d-flex">
+                <form method="POST" action="{{ route('admin.tournament.store', $season) }}" enctype="multipart/form-data" class="row d-flex">
                     @csrf
                     {{-- <input type="hidden" name="season_id" value="{{ $season->id }}" /> --}}
 

@@ -77,6 +77,12 @@ class TournamentController extends Controller
         return view('tournament.show', compact('season', 'tournament'));
     }
 
+    public function showGuests(Tournament $tournament)
+    {
+        $my_teams = $tournament->teams()->where('my_team', 'on');
+        return view('tournament.showTournament', compact('tournament', 'my_teams'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -101,7 +107,7 @@ class TournamentController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'query' => $request->address,
-            'hidden' => $request->hidden,
+            'hidden' => $request->hidden ?? false,
         ]);
 
         return back()->withInput();
@@ -117,7 +123,7 @@ class TournamentController extends Controller
     {
         Tournament::destroy($tournament->id);
 
-        return redirect(route('season.show', $season->id));
+        return redirect(route('admin.season.show', $season->id));
     }
 
     /*
